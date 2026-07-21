@@ -229,7 +229,7 @@
 
     const listEl = document.getElementById('prizes-list');
     listEl.innerHTML = prizes.map(p => `
-      <li class="flex h-[28px] items-center justify-between rounded-lg bg-purple-950/20 px-2.5 text-xs border border-purple-500/5 shrink-0">
+      <li class="flex h-[28px] items-center justify-between rounded-lg bg-purple-950/20 px-2.5 text-xs  shrink-0">
         <div class="flex items-center gap-2">
           <span class="rounded px-1.5 py-0.5 text-[8px] font-black tracking-wide ${p.tone === 'green' ? 'bg-green-500/15 text-green-400' : 'bg-yellow-500/15 text-yellow-400'}">
             ${p.tag}
