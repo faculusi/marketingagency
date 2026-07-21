@@ -1,76 +1,252 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oferta Especial - Lanzamiento</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Animación suave para el botón principal */
-        @keyframes customPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
-            50% { transform: scale(1.04); box-shadow: 0 0 25px rgba(34, 197, 94, 0.8); }
-        }
-        .animate-pulse-glow {
-            animation: customPulse 2s infinite ease-in-out;
-        }
-    </style>
-</head>
-<body class="bg-slate-950 text-white min-h-screen flex flex-col justify-between font-sans antialiased">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CeluApuestas - Beneficio Exclusivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes customPulse {
+      0%, 100% { transform: scale(1) translateZ(0); box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+      50% { transform: scale(1.02) translateZ(0); box-shadow: 0 0 25px rgba(34, 197, 94, 0.7); }
+    }
+    @keyframes sheenEffect {
+      0% { transform: translateX(-100%) skewX(-12deg); }
+      100% { transform: translateX(200%) skewX(-12deg); }
+    }
+    @keyframes softFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
+      50% { transform: translateY(-6px) rotate(0.5deg) translateZ(0); }
+    }
+    @keyframes gentleBounce {
+      0%, 100%, 20%, 50%, 80% { transform: translateY(0) translateZ(0); }
+      40% { transform: translateY(-6px) translateZ(0); }
+      60% { transform: translateY(-3px) translateZ(0); }
+    }
+    @keyframes neonFlicker {
+      0%, 100% { opacity: 0.95; }
+      50% { opacity: 0.85; }
+    }
 
-    <header class="w-full max-w-md mx-auto p-4 flex justify-between items-center border-b border-slate-800">
-        <span class="font-bold text-xl tracking-wider text-emerald-400">MI MARCA</span>
-        <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/20">
-            BONO +60% ACTIVO
+    .animate-pulse-glow { animation: customPulse 2s infinite ease-in-out; }
+    .animate-sheen-line { animation: sheenEffect 3s infinite ease-in-out; }
+    .animate-float { animation: softFloat 5s infinite ease-in-out; }
+    .animate-periodic-bounce { animation: gentleBounce 4.5s infinite ease-in-out; }
+    .animate-neon-flicker { animation: neonFlicker 4s infinite ease-in-out; }
+  </style>
+</head>
+<body class="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-[#0A0116] px-4 pb-6 pt-4 text-white font-sans antialiased selection:bg-purple-500/30">
+
+  <div class="pointer-events-none absolute -top-40 left-1/2 h-[350px] w-[350px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.15)_0%,transparent_70%)]"></div>
+  <div class="pointer-events-none absolute top-1/3 left-1/2 h-[300px] w-[350px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(147,51,234,0.1)_0%,transparent_70%)]"></div>
+  <div class="pointer-events-none absolute bottom-10 left-1/2 h-[250px] w-[300px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.05)_0%,transparent_70%)]"></div>
+
+  <div class="pointer-events-none transform-gpu absolute top-24 left-4 size-10 opacity-25 animate-float">
+    <svg viewBox="0 0 24 24" fill="none" class="text-amber-400">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="rgba(251, 191, 36, 0.15)" />
+      <path d="M12 6v12M9 9h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="pointer-events-none transform-gpu absolute bottom-1/3 right-4 size-12 opacity-15 animate-float" style="animation-delay: 1.5s;">
+    <svg viewBox="0 0 24 24" fill="none" class="text-yellow-500">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="rgba(245, 158, 11, 0.2)" />
+      <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1" />
+    </svg>
+  </div>
+
+  <div class="relative mx-auto flex w-full max-w-md flex-1 flex-col">
+
+    <header class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <img
+          src="celuapuestas-logo.webp"
+          alt="CeluApuestas Logo"
+          width="40"
+          height="40"
+          loading="eager"
+          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23a855f7\'><circle cx=\'12\' cy=\'12\' r=\'10\'/></svg>'"
+          class="h-9 w-9 rounded-xl ring-1 ring-purple-500/50 drop-shadow-[0_0_8px_#a855f7] object-cover"
+        />
+        <span class="text-sm font-black tracking-tight text-white">
+          CELU<span class="bg-gradient-to-r from-purple-400 to-fuchsia-500 bg-clip-text text-transparent">4̶U̶E̶S̶T</span>
         </span>
+      </div>
+      <span class="flex items-center gap-1 rounded-full border border-yellow-500/40 bg-yellow-500/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-yellow-400 shadow-[0_0_12px_rgba(234,179,8,0.15)]">
+        <span class="size-1.5 rounded-full bg-yellow-400 animate-ping"></span>
+        B̶ENEFICIO
+      </span>
     </header>
 
-    <main class="w-full max-w-md mx-auto px-4 py-8 text-center flex-1 flex flex-col justify-center items-center">
+    <div class="flex flex-1 flex-col justify-center gap-5 py-5">
+      <div class="transform-gpu relative flex flex-col items-center rounded-3xl border border-purple-500/20 bg-[#150729] px-4 py-8 text-center shadow-[0_0_25px_rgba(168,85,247,0.12)] animate-float">
         
-        <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-2xl backdrop-blur-sm w-full">
-            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold mb-2 block">
-                ⚡ Promoción Limitada
-            </span>
-            <h1 class="text-3xl font-extrabold text-white mb-4 leading-tight">
-                ¡Duplicá tus beneficios al instante!
-            </h1>
-            <p class="text-slate-300 text-sm mb-6">
-                Accedé a tu cuenta verificada hoy mismo vía WhatsApp y recibí la bonificación activa en tu primer ingreso.
-            </p>
-
-            <a href="https://wa.me/tu-numero-aqui" target="_blank" 
-               class="animate-pulse-glow w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 text-lg">
-                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                </svg>
-                <span>Solicitar Bono por WhatsApp</span>
-            </a>
-            
-            <span class="text-xs text-slate-400 mt-3 block">
-                🟢 Atención inmediata en línea
-            </span>
+        <div class="absolute -top-6 left-1/2 -translate-x-1/2 rounded-full border border-yellow-500 bg-[#16002c] p-2 shadow-[0_0_12px_rgba(234,179,8,0.35)]">
+          <svg class="size-6 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
         </div>
 
-        <div class="grid grid-cols-3 gap-3 w-full mt-6 text-center text-xs text-slate-400">
-            <div class="bg-slate-900/40 border border-slate-800/60 p-3 rounded-lg">
-                <p class="font-bold text-slate-200">🔒 Seguro</p>
-                <p class="text-[10px] text-slate-500 mt-1">Datos protegidos</p>
-            </div>
-            <div class="bg-slate-900/40 border border-slate-800/60 p-3 rounded-lg">
-                <p class="font-bold text-slate-200">⚡ Rápido</p>
-                <p class="text-[10px] text-slate-500 mt-1">Gestión express</p>
-            </div>
-            <div class="bg-slate-900/40 border border-slate-800/60 p-3 rounded-lg">
-                <p class="font-bold text-slate-200">⭐ Garantizado</p>
-                <p class="text-[10px] text-slate-500 mt-1">Atención 24/7</p>
-            </div>
+        <p class="mt-2 text-[11px] font-extrabold uppercase tracking-[0.25em] text-purple-400">
+          ⚡ PROMOCIÓN EXCLUSIVA ⚡
+        </p>
+
+        <h1 class="mt-4 text-balance text-center uppercase tracking-tight leading-none text-white">
+          <span class="block text-2xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+            INICIA CON UN
+          </span>
+          <span class="block text-6xl my-2.5 font-extrabold bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(234,179,8,0.5)] tracking-tighter">
+            +60%
+          </span>
+          <span class="block text-2xl font-black text-yellow-400 tracking-wide drop-shadow-[0_2px_6px_rgba(234,179,8,0.25)]">
+            DE BIENVENIDA
+          </span>
+        </h1>
+
+        <div class="mt-5 flex gap-2 rounded-lg bg-black/40 px-3 py-1.5 border border-purple-500/10">
+          <span class="text-xs font-mono text-fuchsia-400">🔥 ACREDITACIONES EXPRES</span>
+          <span class="text-xs text-yellow-400">|</span>
+          <span class="text-xs font-mono text-fuchsia-400">🔥 INGRESO AL INSTANTE</span>
         </div>
 
-    </main>
+        <p class="mt-4 max-w-xs text-xs leading-relaxed text-purple-200/80">
+          Registrate hoy vía WhatsApp y empezá a jugar con el beneficio activo.
+        </p>
+      </div>
 
-    <footer class="w-full max-w-md mx-auto p-4 text-center text-xs text-slate-600 border-t border-slate-900">
-        © 2026 Todos los derechos reservados.
-    </footer>
+      <div class="flex flex-col items-center gap-2">
+        <a
+          href="https://wa.link/fsipa9"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transform-gpu relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-green-500 px-6 py-4 text-lg font-black uppercase tracking-wider text-white transition-transform duration-200 hover:scale-[1.01] active:scale-95 shadow-[0_0_15px_rgba(34,197,94,0.3)] animate-pulse-glow animate-periodic-bounce"
+        >
+          <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-sheen-line"></span>
+          <svg class="relative size-6 shrink-0 fill-current drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+          </svg>
+          <span class="relative drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
+            Quiero mi usuario
+          </span>
+        </a>
+        <p class="text-[11px] font-bold uppercase tracking-wider text-green-400 animate-neon-flicker">
+          🟢 Activación inmediata en línea
+        </p>
+      </div>
+    </div>
 
+    <div class="grid grid-cols-3 gap-2 py-1 mb-3">
+      <div class="flex flex-col items-center rounded-xl border border-purple-500/10 bg-purple-950/20 p-2.5 text-center">
+        <div class="rounded-full bg-yellow-500/10 p-1.5 text-yellow-400">
+          <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <span class="mt-1.5 text-[10px] font-black uppercase text-yellow-400">Seguro</span>
+        <span class="text-[8px] text-purple-300/60 mt-0.5 leading-none">Datos protegidos</span>
+      </div>
+
+      <div class="flex flex-col items-center rounded-xl border border-purple-500/10 bg-purple-950/20 p-2.5 text-center">
+        <div class="rounded-full bg-fuchsia-500/10 p-1.5 text-fuchsia-400">
+          <svg class="size-5 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <span class="mt-1.5 text-[10px] font-black uppercase text-fuchsia-400">Rápido</span>
+        <span class="text-[8px] text-purple-300/60 mt-0.5 leading-none">Gestión Instantánea</span>
+      </div>
+
+      <div class="flex flex-col items-center rounded-xl border border-purple-500/10 bg-purple-950/20 p-2.5 text-center">
+        <div class="rounded-full bg-purple-500/10 p-1.5 text-purple-400">
+          <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+        </div>
+        <span class="mt-1.5 text-[10px] font-black uppercase text-purple-400">Atención 24/7</span>
+        <span class="text-[8px] text-purple-300/60 mt-0.5 leading-none">Beneficios VIP</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <section aria-label="Premios en vivo" class="rounded-2xl border border-purple-500/20 bg-[#130623] p-3">
+        <div class="mb-2 flex items-center gap-2 px-0.5">
+          <span class="relative flex size-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
+            <span class="relative inline-flex size-2 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e]"></span>
+          </span>
+          <h2 class="text-[10px] font-black uppercase tracking-[0.18em] text-purple-300">
+            Jugadores Recientes
+          </h2>
+          <span class="ml-auto text-[9px] font-black uppercase tracking-wider text-green-400 animate-pulse">
+            Live Feed
+          </span>
+        </div>
+
+        <div class="relative h-[96px] overflow-hidden">
+          <ul id="prizes-list" class="flex flex-col gap-1.5 transition-transform duration-500 ease-out will-change-transform transform-gpu">
+            </ul>
+        </div>
+      </section>
+
+      <ul class="flex items-center justify-center gap-x-4 gap-y-1.5 flex-wrap text-purple-300/40">
+        <li class="flex items-center gap-1.5">
+          <svg class="size-3.5 text-purple-400/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
+          <span class="text-[10px] font-bold tracking-tight">Billeteras digitales</span>
+        </li>
+        <li class="flex items-center gap-1.5">
+          <svg class="size-3.5 text-purple-400/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7 12 2"/></svg>
+          <span class="text-[10px] font-bold tracking-tight">Transf. Bancaria</span>
+        </li>
+        <li class="flex items-center gap-1.5">
+          <svg class="size-3.5 text-purple-400/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          <span class="text-[10px] font-bold tracking-tight">Soporte 24/7</span>
+        </li>
+      </ul>
+
+      <p class="text-center text-[9px] font-bold uppercase tracking-[0.2em] text-yellow-500/60">
+        * Promoción disponible por tiempo limitado *
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const prizes = [
+      { name: 'Martín G.', tag: 'SI', amount: '$48.500', tone: 'green' },
+      { name: 'Sofía R.', tag: 'LLEVA', amount: '$112.000', tone: 'gold' },
+      { name: 'Nico A.', tag: 'SI', amount: '$27.300', tone: 'green' },
+      { name: 'Valentina P.', tag: 'SI', amount: '$85.400', tone: 'green' },
+      { name: 'Lucas M.', tag: 'LLEVA', amount: '$150.000', tone: 'gold' },
+      { name: 'Matias S.', tag: 'SI', amount: '$62.400', tone: 'green' },
+      { name: 'Camila B.', tag: 'LLEVA', amount: '$98.000', tone: 'gold' },
+      { name: 'Facundo T.', tag: 'SI', amount: '$31.500', tone: 'green' },
+      { name: 'Agustina M.', tag: 'LLEVA', amount: '$210.000', tone: 'gold' },
+      { name: 'Bautista D.', tag: 'SI', amount: '$43.900', tone: 'green' },
+      { name: 'Julieta F.', tag: 'SI', amount: '$74.000', tone: 'green' },
+      { name: 'Tomas L.', tag: 'LLEVA', amount: '$125.000', tone: 'gold' },
+      { name: 'Mateo C.', tag: 'SI', amount: '$19.800', tone: 'green' },
+      { name: 'Olivia G.', tag: 'LLEVA', amount: '$315.000', tone: 'gold' },
+      { name: 'Joaquín V.', tag: 'SI', amount: '$55.000', tone: 'green' },
+      { name: 'Delfina S.', tag: 'LLEVA', amount: '$89.500', tone: 'gold' },
+      { name: 'Felipe H.', tag: 'SI', amount: '$38.200', tone: 'green' },
+      { name: 'Emma R.', tag: 'SI', amount: '$105.000', tone: 'green' },
+      { name: 'Santiago K.', tag: 'LLEVA', amount: '$175.000', tone: 'gold' },
+      { name: 'Victoria Q.', tag: 'SI', amount: '$67.000', tone: 'green' }
+    ];
+
+    const listEl = document.getElementById('prizes-list');
+    listEl.innerHTML = prizes.map(p => `
+      <li class="flex h-[28px] items-center justify-between rounded-lg bg-purple-950/20 px-2.5 text-xs border border-purple-500/5 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="rounded px-1.5 py-0.5 text-[8px] font-black tracking-wide ${p.tone === 'green' ? 'bg-green-500/15 text-green-400' : 'bg-yellow-500/15 text-yellow-400'}">
+            ${p.tag}
+          </span>
+          <span class="font-semibold text-purple-100">${p.name}</span>
+        </div>
+        <span class="font-black tabular-nums ${p.tone === 'green' ? 'text-green-400' : 'text-yellow-400'}">
+          ${p.amount}
+        </span>
+      </li>
+    `).join('');
+
+    let currentIndex = 0;
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % (prizes.length - 2);
+      listEl.style.transform = `translate3d(0, -${currentIndex * 34}px, 0)`;
+    }, 2800);
+  </script>
 </body>
 </html>
