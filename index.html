@@ -1180,33 +1180,7 @@
     }
   }
 }
-    @keyframes customPulse {
-      0%, 100% { transform: scale(1) translateZ(0); box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
-      50% { transform: scale(1.02) translateZ(0); box-shadow: 0 0 25px rgba(34, 197, 94, 0.7); }
-    }
-    @keyframes sheenEffect {
-      0% { transform: translateX(-100%) skewX(-12deg); }
-      100% { transform: translateX(200%) skewX(-12deg); }
-    }
-    @keyframes softFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
-      50% { transform: translateY(-6px) rotate(0.5deg) translateZ(0); }
-    }
-    @keyframes gentleBounce {
-      0%, 100%, 20%, 50%, 80% { transform: translateY(0) translateZ(0); }
-      40% { transform: translateY(-6px) translateZ(0); }
-      60% { transform: translateY(-3px) translateZ(0); }
-    }
-    @keyframes neonFlicker {
-      0%, 100% { opacity: 0.95; }
-      50% { opacity: 0.85; }
-    }
-
-    .animate-pulse-glow { animation: customPulse 2s infinite ease-in-out; }
-    .animate-sheen-line { animation: sheenEffect 3s infinite ease-in-out; }
-    .animate-float { animation: softFloat 5s infinite ease-in-out; }
-    .animate-periodic-bounce { animation: gentleBounce 4.5s infinite ease-in-out; }
-    .animate-neon-flicker { animation: neonFlicker 4s infinite ease-in-out; }
+    
   </style>
 </head>
 <body class="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-[#0A0116] px-4 pb-6 pt-4 text-white font-sans antialiased selection:bg-purple-500/30">
