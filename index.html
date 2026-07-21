@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta Especial - Lanzamiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animación suave para el botón principal */
+        @keyframes customPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+            50% { transform: scale(1.04); box-shadow: 0 0 25px rgba(34, 197, 94, 0.8); }
+        }
+        .animate-pulse-glow {
+            animation: customPulse 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex flex-col justify-between font-sans antialiased">
+
+    <header class="w-full max-w-md mx-auto p-4 flex justify-between items-center border-b border-slate-800">
+        <span class="font-bold text-xl tracking-wider text-emerald-400">MI MARCA</span>
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/20">
+            BONO +60% ACTIVO
+        </span>
+    </header>
+
+    <main class="w-full max-w-md mx-auto px-4 py-8 text-center flex-1 flex flex-col justify-center items-center">
+        
+        <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-2xl backdrop-blur-sm w-full">
+            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold mb-2 block">
+                ⚡ Promoción Limitada
+            </span>
+            <h1 class="text-3xl font-extrabold text-white mb-4 leading-tight">
+                ¡Duplicá tus beneficios al instante!
+            </h1>
+            <p class="text-slate-300 text-sm mb-6">
+                Accedé a tu cuenta verificada hoy mismo vía WhatsApp y recibí la bonificación activa en tu primer ingreso.
+            </p>
+
+            <a href="https://wa.me/tu-numero-aqui" target="_blank" 
+               class="animate-pulse-glow w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 text-lg">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                </svg>
+                <span>Solicitar Bono por WhatsApp</span>
+            </a>
+            
+            <span class="text-xs text-slate-400 mt-3 block">
+                🟢 Atención inmediata en línea
+            </span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 w-full mt-6 text-center text-xs text-slate-400">
+            <div class="bg-slate-900/40 border border-slate-800/60 p-3 rounded-lg">
+                <p class="font-bold text-slate-200">🔒 Seguro</p>
+                <p class="text-[10px] text-slate-500 mt-1">Datos protegidos</p>
+            </div>
+            <div class="bg-slate-900/40 border border-slate-800/60 p-3 rounded-lg">
+                <p class="font-bold text-slate-200">⚡ Rápido</p>
+                <p class="text-[10px] text-slate-500 mt-1">Gestión express</p>
+            </div>
+            <div class="bg-slate-900/40 border border-slate-800/60 p-3 rounded-lg">
+                <p class="font-bold text-slate-200">⭐ Garantizado</p>
+                <p class="text-[10px] text-slate-500 mt-1">Atención 24/7</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full max-w-md mx-auto p-4 text-center text-xs text-slate-600 border-t border-slate-900">
+        © 2026 Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>
