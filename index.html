@@ -1310,6 +1310,7 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
 
       <div class="flex flex-col items-center gap-2">
         <a
+          id="btn-whatsapp"
           href="https://wa.link/vauwy4"  
           target="_blank"
           rel="noopener noreferrer"
@@ -1442,6 +1443,29 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
       currentIndex = (currentIndex + 1) % (prizes.length - 2);
       listEl.style.transform = `translate3d(0, -${currentIndex * 34}px, 0)`;
     }, 2800);
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnWhatsapp = document.getElementById('btn-whatsapp');
+
+      if (btnWhatsapp) {
+        btnWhatsapp.addEventListener('click', function(e) {
+          // Disparar el evento de conversión en segundo plano a Vercel
+          fetch('/api/meta-conversion', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              eventName: 'Lead',
+              eventSourceUrl: window.location.href,
+            }),
+          }).catch(function(err) {
+            console.error('Error enviando evento a Meta:', err);
+          });
+        });
+      }
+    });
   </script>
 </body>
 </html>
