@@ -1,45 +1,56 @@
-import { NextResponse } from 'next/server';
+// api/meta-conversion.js (Para proyectos de HTML estático en Vercel)
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Método no permitido' });
+  }
 
-export async function POST(request) {
   try {
-    const body = await request.json();
+    const { eventName, eventSourceUrl } = req.body || {};
+
     const pixelId = process.env.META_PIXEL_ID;
     const accessToken = process.env.META_ACCESS_TOKEN;
 
     if (!pixelId || !accessToken) {
-      return NextResponse.json({ error: 'Faltan credenciales' }, { status: 500 });
+      return res.status(500).json({ error: 'Variables de entorno no configuradas en Vercel' });
     }
 
-    // Datos del evento enviados desde el navegador
-    const { eventName, sourceUrl, clientIp, userAgent } = body;
+    // Marca de tiempo en segundos
+    const currentTimestamp = Math.floor(Date.now() / 1000);
 
-    const eventData = {
+    // Obtener IP y User-Agent del cliente desde las cabeceras de Vercel
+    const clientIp = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || '';
+    const userAgent = req.headers['user-agent'] || '';
+
+    const payload = {
       data: [
         {
           event_name: eventName || 'Lead',
-          event_time: Math.floor(Date.now() / 1000),
+          event_time: currentTimestamp,
           action_source: 'website',
-          event_source_url: sourceUrl || 'https://tu-landing.vercel.app',
+          event_source_url: eventSourceUrl,
           user_data: {
-            client_ip_address: clientIp || null,
-            client_user_agent: userAgent || null,
+            client_ip_address: clientIp,
+            client_user_agent: userAgent,
           },
         },
       ],
     };
 
-    const response = await fetch(
+    // Envío del evento a Meta
+    const fbResponse = await fetch(
       `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${accessToken}`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(eventData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       }
     );
 
-    const result = await response.json();
-    return NextResponse.json({ success: true, result });
+    const result = await fbResponse.json();
+    return res.status(200).json(result);
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return res.status(500).json({ error: 'Error interno en la API' });
   }
 }
