@@ -5,8 +5,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { eventName, eventSourceUrl } = req.body || {};
-
+    const {
+  eventName,
+  eventSourceUrl,
+  eventId
+} = req.body || {};
     const pixelId = process.env.META_PIXEL_ID;
     const accessToken = process.env.META_ACCESS_TOKEN;
 
@@ -26,6 +29,7 @@ export default async function handler(req, res) {
         {
           event_name: eventName || 'Lead',
           event_time: currentTimestamp,
+          event_id: eventId,
           action_source: 'website',
           event_source_url: eventSourceUrl,
           user_data: {
