@@ -5,10 +5,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
+const {
   eventName,
   eventSourceUrl,
-  eventId
+  eventId,
+  fbc,
+  fbp
 } = req.body || {};
     const pixelId = process.env.META_PIXEL_ID;
     const accessToken = process.env.META_ACCESS_TOKEN;
@@ -32,10 +34,12 @@ export default async function handler(req, res) {
           event_id: eventId,
           action_source: 'website',
           event_source_url: eventSourceUrl,
-          user_data: {
-            client_ip_address: clientIp,
-            client_user_agent: userAgent,
-          },
+         user_data: {
+  client_ip_address: clientIp,
+  client_user_agent: userAgent,
+  fbc: fbc,
+  fbp: fbp,
+},
         },
       ],
     };
