@@ -1489,18 +1489,14 @@ src="https://www.facebook.com/tr?id=1388630383143687&ev=PageView&noscript=1"
 
     if (btnWhatsapp) {
       btnWhatsapp.addEventListener('click', function(e) {
-        e.preventDefault();
+  e.preventDefault();
 
-        const eventId = crypto.randomUUID();
+  console.log('Botón tocado');
+  console.log('crmPlugin:', typeof crmPlugin);
 
-        const fbp = getCookie('_fbp');
-        const params = new URLSearchParams(window.location.search);
-        const fbclid = params.get('fbclid');
-        let fbc = null;
-
-        if (fbclid) {
-          fbc = `fb.1.${Date.now()}.${fbclid}`;
-        }
+  if (typeof crmPlugin === 'function') {
+    crmPlugin('runChatShow');
+  }
 
         // PIXEL
         if (typeof fbq === 'function') {
@@ -1529,14 +1525,6 @@ src="https://www.facebook.com/tr?id=1388630383143687&ev=PageView&noscript=1"
       });
     }
   });
-</script>
-  <script>
-  window.crmPluginConfig = {
-    hidden: true,
-    onlinechat: {
-      mode: 'widget'
-    }
-  };
 </script>
   <script>(function(a,m,o,c,r,m){a[m]={id:"1078997",hash:"fdcf1dbcbfda5bca7067249ca3ea212e51b964cea281f2fc934d7e4fb67f2ad9",locale:"es",setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.kommo.com/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'crmPlugin',0,0,'crm_plugin'));</script>
 </body>
