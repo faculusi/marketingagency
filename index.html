@@ -1469,12 +1469,26 @@ src="https://www.facebook.com/tr?id=1388630383143687&ev=PageView&noscript=1"
     return null;
   }
 
+  function abrirKommoChat(intentos = 0) {
+    if (typeof window.crmPlugin === 'function') {
+      window.crmPlugin('runChatShow');
+      return;
+    }
+
+    if (intentos < 20) {
+      setTimeout(function() {
+        abrirKommoChat(intentos + 1);
+      }, 200);
+    } else {
+      console.error('Kommo Chat no terminó de cargar');
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     const btnWhatsapp = document.getElementById('btn-whatsapp');
 
     if (btnWhatsapp) {
       btnWhatsapp.addEventListener('click', function(e) {
-
         e.preventDefault();
 
         const eventId = crypto.randomUUID();
@@ -1511,12 +1525,7 @@ src="https://www.facebook.com/tr?id=1388630383143687&ev=PageView&noscript=1"
         });
 
         // ABRIR CHAT DE KOMMO
-        if (typeof crmPlugin === 'function') {
-          crmPlugin('runChatShow');
-        } else {
-          console.error('Kommo Chat todavía no está cargado');
-        }
-
+        abrirKommoChat();
       });
     }
   });
