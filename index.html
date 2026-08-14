@@ -1442,5 +1442,96 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
       listEl.style.transform = `translate3d(0, -${currentIndex * 34}px, 0)`;
     }, 2800);
   </script>
+  <script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+    return null;
+  }
+
+  function getFbc() {
+    // Primero intentamos obtener _fbc si Meta ya lo creó
+    const cookieFbc = getCookie('_fbc');
+    if (cookieFbc) return cookieFbc;
+
+    // Si vino desde un anuncio con fbclid, construimos fbc
+    const params = new URLSearchParams(window.location.search);
+    const fbclid = params.get('fbclid');
+
+    if (fbclid) {
+      return `fb.1.${Date.now()}.${fbclid}`;
+    }
+
+    return null;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const btnWhatsapp = document.getElementById('btn-whatsapp');
+
+    if (!btnWhatsapp) return;
+
+    btnWhatsapp.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const whatsappUrl = this.href;
+
+      // ID único para deduplicar Pixel + CAPI
+      const eventId =
+        'lead_' +
+        Date.now() +
+        '_' +
+        Math.random().toString(36).substring(2, 10);
+
+      // Cookies Meta
+      const fbp = getCookie('_fbp');
+      const fbc = getFbc();
+
+      // =========================
+      // 1. META PIXEL - LEAD
+      // =========================
+      if (typeof fbq === 'function') {
+        fbq(
+          'track',
+          'Lead',
+          {},
+          {
+            eventID: eventId
+          }
+        );
+      }
+
+      // =========================
+      // 2. META CAPI - LEAD
+      // =========================
+      fetch('/api/meta-conversion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          eventName: 'Lead',
+          eventSourceUrl: window.location.href,
+          eventId: eventId,
+          fbc: fbc,
+          fbp: fbp
+        }),
+        keepalive: true
+      }).catch(function (err) {
+        console.error('Error enviando Lead por CAPI:', err);
+      });
+
+      // =========================
+      // 3. ABRIR WHATSAPP
+      // =========================
+      setTimeout(function () {
+        window.location.href = whatsappUrl;
+      }, 150);
+    });
+  });
+</script>
 </body>
 </html>
