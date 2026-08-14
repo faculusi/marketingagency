@@ -1224,9 +1224,27 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '923370044115108');
 fbq('track', 'PageView');
+fbq('init', '923370044115108', {
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+  <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1388630383143687');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1388630383143687&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 </head>
@@ -1309,9 +1327,11 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
       </div>
 
       <div class="flex flex-col items-center gap-2">
-      <a
-  id="btn-whatsapp"
-  href="https://wa.link/fsipa9"
+        <a
+          id="btn-whatsapp"
+          href="https://wa.link/ao6gjs"  
+          target="_blank"
+          rel="noopener noreferrer"
           class="transform-gpu relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-green-500 px-6 py-4 text-lg font-black uppercase tracking-wider text-white transition-transform duration-200 hover:scale-[1.01] active:scale-95 shadow-[0_0_15px_rgba(34,197,94,0.3)] animate-pulse-glow animate-periodic-bounce"
         >
           <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-sheen-line"></span>
@@ -1443,95 +1463,27 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
     }, 2800);
   </script>
   <script>
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(';').shift();
-    }
-    return null;
-  }
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnWhatsapp = document.getElementById('btn-whatsapp');
 
-  function getFbc() {
-    // Primero intentamos obtener _fbc si Meta ya lo creó
-    const cookieFbc = getCookie('_fbc');
-    if (cookieFbc) return cookieFbc;
-
-    // Si vino desde un anuncio con fbclid, construimos fbc
-    const params = new URLSearchParams(window.location.search);
-    const fbclid = params.get('fbclid');
-
-    if (fbclid) {
-      return `fb.1.${Date.now()}.${fbclid}`;
-    }
-
-    return null;
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-
-    const btnWhatsapp = document.getElementById('btn-whatsapp');
-
-    if (!btnWhatsapp) return;
-
-    btnWhatsapp.addEventListener('click', function (e) {
-      e.preventDefault();
-
-      const whatsappUrl = this.href;
-
-      // ID único para deduplicar Pixel + CAPI
-      const eventId =
-        'lead_' +
-        Date.now() +
-        '_' +
-        Math.random().toString(36).substring(2, 10);
-
-      // Cookies Meta
-      const fbp = getCookie('_fbp');
-      const fbc = getFbc();
-
-      // =========================
-      // 1. META PIXEL - LEAD
-      // =========================
-      if (typeof fbq === 'function') {
-        fbq(
-          'track',
-          'Lead',
-          {},
-          {
-            eventID: eventId
-          }
-        );
+      if (btnWhatsapp) {
+        btnWhatsapp.addEventListener('click', function(e) {
+          // Disparar el evento de conversión en segundo plano a Vercel
+          fetch('/api/meta-conversion', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              eventName: 'Lead',
+              eventSourceUrl: window.location.href,
+            }),
+          }).catch(function(err) {
+            console.error('Error enviando evento a Meta:', err);
+          });
+        });
       }
-
-      // =========================
-      // 2. META CAPI - LEAD
-      // =========================
-      fetch('/api/meta-conversion', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          eventName: 'Lead',
-          eventSourceUrl: window.location.href,
-          eventId: eventId,
-          fbc: fbc,
-          fbp: fbp
-        }),
-        keepalive: true
-      }).catch(function (err) {
-        console.error('Error enviando Lead por CAPI:', err);
-      });
-
-      // =========================
-      // 3. ABRIR WHATSAPP
-      // =========================
-      setTimeout(function () {
-        window.location.href = whatsappUrl;
-      }, 150);
     });
-  });
-</script>
+  </script>
 </body>
 </html>
