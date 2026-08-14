@@ -1444,28 +1444,83 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
       listEl.style.transform = `translate3d(0, -${currentIndex * 34}px, 0)`;
     }, 2800);
   </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const btnWhatsapp = document.getElementById('btn-whatsapp');
+<script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+    return null;
+  }
 
-      if (btnWhatsapp) {
-        btnWhatsapp.addEventListener('click', function(e) {
-          // Disparar el evento de conversión en segundo plano a Vercel
-          fetch('/api/meta-conversion', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              eventName: 'Lead',
-              eventSourceUrl: window.location.href,
-            }),
-          }).catch(function(err) {
-            console.error('Error enviando evento a Meta:', err);
-          });
+  function getFbc() {
+    // Si Meta ya creó la cookie _fbc, usamos esa
+    const existingFbc = getCookie('_fbc');
+    if (existingFbc) {
+      return existingFbc;
+    }
+
+    // Si la persona llegó desde un anuncio,
+    // armamos fbc a partir del fbclid
+    const params = new URLSearchParams(window.location.search);
+    const fbclid = params.get('fbclid');
+
+    if (!fbclid) {
+      return null;
+    }
+
+    return `fb.1.${Date.now()}.${fbclid}`;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const btnWhatsapp = document.getElementById('btn-whatsapp');
+
+    if (!btnWhatsapp) return;
+
+    btnWhatsapp.addEventListener('click', function() {
+
+      // ID único para este Lead
+      const eventId =
+        'lead_' +
+        Date.now() +
+        '_' +
+        Math.random().toString(36).substring(2, 10);
+
+      const fbp = getCookie('_fbp');
+      const fbc = getFbc();
+
+      // =====================================
+      // META PIXEL - LEAD (BROWSER)
+      // =====================================
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {}, {
+          eventID: eventId
         });
       }
+
+      // =====================================
+      // META CONVERSIONS API - LEAD (SERVER)
+      // =====================================
+      fetch('/api/meta-conversion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        keepalive: true,
+        body: JSON.stringify({
+          eventName: 'Lead',
+          eventSourceUrl: window.location.href,
+          eventId: eventId,
+          fbp: fbp,
+          fbc: fbc
+        }),
+      }).catch(function(err) {
+        console.error('Error enviando evento a Meta:', err);
+      });
+
     });
-  </script>
+  });
+</script>
 </body>
 </html>
