@@ -1672,8 +1672,17 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     return 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
   }
 
+  // Navegación top-level (no window.open): a diferencia de solyluz, acá se
+  // llega a este punto siempre después de un await (la respuesta de
+  // /api/lead), y en ese momento algunos navegadores mobile (Safari
+  // iPhone, Chrome Android) pueden considerar perdida la interacción del
+  // usuario y bloquear una ventana nueva. window.location.href navega la
+  // pestaña actual, nunca abre una ventana -- no hay nada que un
+  // bloqueador de popups pueda interceptar. La landing queda atrás en el
+  // historial, comportamiento esperado (igual que la landing puente de
+  // redsolyluz).
   function openWhatsapp(leadRef, whatsappNumber) {
-    window.open(buildWhatsappUrl(leadRef, whatsappNumber), '_blank', 'noopener');
+    window.location.href = buildWhatsappUrl(leadRef, whatsappNumber);
   }
 
   // Flujo de CTA -- se espera la respuesta de /api/lead ANTES de abrir
