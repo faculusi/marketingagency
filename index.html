@@ -1222,11 +1222,11 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '923370044115108');
+fbq('init', '1999888117386965');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 </head>
@@ -1311,7 +1311,7 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
       <div class="flex flex-col items-center gap-2">
         <a
           id="btn-whatsapp"
-          href="https://wa.link/274e62"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
           class="transform-gpu relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-green-500 px-6 py-4 text-lg font-black uppercase tracking-wider text-white transition-transform duration-200 hover:scale-[1.01] active:scale-95 shadow-[0_0_15px_rgba(34,197,94,0.3)] animate-pulse-glow animate-periodic-bounce"
@@ -1445,80 +1445,302 @@ src="https://www.facebook.com/tr?id=923370044115108&ev=PageView&noscript=1"
     }, 2800);
   </script>
 <script>
+  // ============================================================================
+  // Integración con el ecosistema meta-conversion-backend (mismo backend y
+  // mismo mecanismo que ya usan solyluz/redsolyluz): WhatsApp activo vía
+  // /api/public-config, Lead vía /api/lead (lead_ref lo genera el backend,
+  // nunca el frontend), mismo event_id compartido entre el Lead de Pixel
+  // (browser) y el Lead de CAPI (server) para que Meta pueda deduplicar,
+  // y protección de doble click. Reemplaza al viejo /api/meta-conversion
+  // propio de esta landing, que quedó sin uso (ver eliminación del archivo).
+  // ============================================================================
+  var MA_CONFIG = {
+    API_BASE_URL: 'https://meta-conversion-backend.vercel.app',
+    LEAD_ENDPOINT: '/api/lead',
+    PUBLIC_CONFIG_ENDPOINT: '/api/public-config',
+    PAGEVIEW_ENDPOINT: '/api/pageview',
+    PUBLIC_CONFIG_TIMEOUT_MS: 2500,
+    LEAD_REQUEST_TIMEOUT_MS: 6000,
+    // Ventana de reutilización del event_id (minutos) -- doble click o
+    // reintentos dentro de esta ventana reusan el mismo event_id en vez de
+    // generar un Lead nuevo (mismo criterio que solyluz).
+    EVENT_ID_TTL_MINUTES: 30,
+    LANDING_VARIANT: 'marketingagency',
+    WHATSAPP_MESSAGE: 'Hola, quiero mi 60% de bienvenida.',
+    // Se agrega solo si el backend devolvió lead_ref.
+    WHATSAPP_REF_LINE: 'Mi código de descuento es: {lead_ref}',
+    // Fallback SOLO si /api/public-config no responde a tiempo o falla. El
+    // número real "en vivo" lo administra panel-cajero -- no hay ningún
+    // número de anuncio hardcodeado acá (mismo criterio que config.js de
+    // solyluz/redsolyluz).
+    WHATSAPP_NUMBER_FALLBACK: '549xxxxxxx'
+  };
+
   function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(';').shift();
-    }
-    return null;
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
   }
 
-  function getFbc() {
-    // Si Meta ya creó la cookie _fbc, usamos esa
-    const existingFbc = getCookie('_fbc');
-    if (existingFbc) {
-      return existingFbc;
-    }
-
-    // Si la persona llegó desde un anuncio,
-    // armamos fbc a partir del fbclid
-    const params = new URLSearchParams(window.location.search);
-    const fbclid = params.get('fbclid');
-
-    if (!fbclid) {
-      return null;
-    }
-
-    return `fb.1.${Date.now()}.${fbclid}`;
+  // Reconstruye _fbc a partir de fbclid si no existe la cookie. Formato
+  // oficial: fb.1.<timestamp_ms>.<fbclid>
+  function buildFbcFromClid(fbclid) {
+    if (!fbclid) return null;
+    return 'fb.1.' + Date.now() + '.' + fbclid;
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const btnWhatsapp = document.getElementById('btn-whatsapp');
+  // Atribución de campaña: mismos parámetros que ya lee api/lead.js del
+  // backend (ver getQueryParams() de solyluz/script.js).
+  function getQueryParams() {
+    var params = new URLSearchParams(window.location.search);
+    var out = {};
+    ['click_id', 'campaign_id', 'campaign_name', 'adset_id', 'adset_name',
+     'ad_id', 'ad_name', 'fbclid'].forEach(function (key) {
+      var v = params.get(key);
+      if (v) out[key] = v;
+    });
+    if (!out.click_id && out.fbclid) out.click_id = out.fbclid;
+    return out;
+  }
 
+  var attribution = getQueryParams();
+  attribution.fbc = getCookie('_fbc') || buildFbcFromClid(attribution.fbclid);
+  attribution.fbp = getCookie('_fbp');
+
+  // event_id: identifica una intención de conversión, se reutiliza dentro
+  // de la ventana TTL (protege contra doble click / doble Lead). Se resuelve
+  // recién al mandar el Lead, y el MISMO valor se usa para el evento Lead
+  // del Pixel (browser) -- necesario para que Meta pueda deduplicar.
+  var EVENT_ID_STORAGE_KEY = 'ma_event_id_v1';
+
+  function generateId() {
+    return (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : 'lead-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+  }
+
+  function resolveEventId() {
+    var ttlMs = MA_CONFIG.EVENT_ID_TTL_MINUTES * 60 * 1000;
+    var stored = null;
+    try {
+      stored = JSON.parse(sessionStorage.getItem(EVENT_ID_STORAGE_KEY) || 'null');
+    } catch (e) {
+      stored = null;
+    }
+    var isValid = stored && stored.event_id && stored.created_at &&
+      (Date.now() - stored.created_at) < ttlMs;
+    if (isValid) return stored.event_id;
+
+    var fresh = { event_id: generateId(), created_at: Date.now() };
+    try {
+      sessionStorage.setItem(EVENT_ID_STORAGE_KEY, JSON.stringify(fresh));
+    } catch (e) {
+      /* sessionStorage no disponible: se sigue igual, solo sin persistencia */
+    }
+    return fresh.event_id;
+  }
+
+  // PageView interno (solo Supabase, nunca Meta CAPI -- el Pixel del
+  // navegador de arriba sigue siendo la única fuente de PageView para
+  // Meta). Fire-and-forget con keepalive, igual que solyluz/redsolyluz.
+  (function sendPageView() {
+    if (!MA_CONFIG.PAGEVIEW_ENDPOINT) return;
+    var payload = {
+      event_source_url: window.location.href,
+      fbclid: attribution.fbclid || null,
+      fbc: attribution.fbc || null,
+      fbp: attribution.fbp || null,
+      campaign_id: attribution.campaign_id || null,
+      campaign_name: attribution.campaign_name || null,
+      adset_id: attribution.adset_id || null,
+      adset_name: attribution.adset_name || null,
+      ad_id: attribution.ad_id || null,
+      ad_name: attribution.ad_name || null,
+      landing_variant: MA_CONFIG.LANDING_VARIANT
+    };
+    try {
+      fetch(MA_CONFIG.API_BASE_URL + MA_CONFIG.PAGEVIEW_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function (err) {
+        console.warn('No se pudo registrar el PageView interno:', err);
+      });
+    } catch (err) {
+      console.warn('No se pudo iniciar el registro del PageView interno:', err);
+    }
+  })();
+
+  // Número de WhatsApp activo -- se resuelve en segundo plano apenas carga
+  // la página (mismo mecanismo que solyluz/redsolyluz: si /api/public-config
+  // falla, tarda de más, o no hay ningún número activo, se cae al fallback
+  // de acá arriba, nunca bloquea el CTA).
+  var activeWhatsappNumber = null;
+
+  (function resolveWhatsappNumber() {
+    var endpoint = MA_CONFIG.API_BASE_URL + MA_CONFIG.PUBLIC_CONFIG_ENDPOINT;
+    var controller = (window.AbortController) ? new AbortController() : null;
+    var timeoutId = controller
+      ? setTimeout(function () { controller.abort(); }, MA_CONFIG.PUBLIC_CONFIG_TIMEOUT_MS)
+      : null;
+
+    fetch(endpoint, { signal: controller ? controller.signal : undefined })
+      .then(function (response) {
+        if (!response.ok) return null;
+        return response.json().catch(function () { return null; });
+      })
+      .then(function (data) {
+        var number = (data && typeof data.whatsapp_number === 'string') ? data.whatsapp_number.trim() : '';
+        if (number) activeWhatsappNumber = number;
+      })
+      .catch(function (err) {
+        console.warn('No se pudo obtener el número de WhatsApp activo, se usa el fallback:', err);
+      })
+      .finally(function () {
+        if (timeoutId) clearTimeout(timeoutId);
+      });
+  })();
+
+  function getWhatsappNumber() {
+    return activeWhatsappNumber || MA_CONFIG.WHATSAPP_NUMBER_FALLBACK;
+  }
+
+  // Envío del Lead al backend central -- mismo payload/criterio que
+  // solyluz/script.js (sendLead). marketingagency no tiene apodo: se manda
+  // nickname: null explícitamente (api/lead.js del backend ya lo acepta
+  // sin exigirlo).
+  function sendLead(eventId, whatsappPhone) {
+    var endpoint = MA_CONFIG.API_BASE_URL + MA_CONFIG.LEAD_ENDPOINT;
+
+    var payload = {
+      event_id: eventId,
+      click_id: attribution.click_id || null,
+      campaign_id: attribution.campaign_id || null,
+      campaign_name: attribution.campaign_name || null,
+      adset_id: attribution.adset_id || null,
+      adset_name: attribution.adset_name || null,
+      ad_id: attribution.ad_id || null,
+      ad_name: attribution.ad_name || null,
+      fbclid: attribution.fbclid || null,
+      fbc: attribution.fbc || null,
+      fbp: attribution.fbp || null,
+      event_source_url: window.location.href,
+      user_phone: null,
+      nickname: null,
+      whatsapp_phone: whatsappPhone,
+      landing_variant: MA_CONFIG.LANDING_VARIANT
+    };
+
+    var controller = (window.AbortController) ? new AbortController() : null;
+    var timeoutId = controller
+      ? setTimeout(function () { controller.abort(); }, MA_CONFIG.LEAD_REQUEST_TIMEOUT_MS)
+      : null;
+
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller ? controller.signal : undefined
+    })
+      .then(function (response) {
+        return response.json()
+          .catch(function () { return {}; })
+          .then(function (data) {
+            var leadRef = (data && typeof data.lead_ref === 'string' && data.lead_ref.trim())
+              ? data.lead_ref.trim()
+              : null;
+            if (leadRef) {
+              return { ok: true, lead_ref: leadRef };
+            }
+            return { ok: response.ok, lead_ref: null };
+          });
+      })
+      .catch(function (err) {
+        console.warn('No se pudo registrar el Lead en el backend:', err);
+        return { ok: false, lead_ref: null };
+      })
+      .finally(function () {
+        if (timeoutId) clearTimeout(timeoutId);
+      });
+  }
+
+  function buildWhatsappUrl(leadRef, whatsappNumber) {
+    var message = MA_CONFIG.WHATSAPP_MESSAGE;
+    if (leadRef) {
+      message += '\n' + MA_CONFIG.WHATSAPP_REF_LINE.replace('{lead_ref}', leadRef);
+    }
+    return 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+  }
+
+  // Navegación top-level (no window.open): a diferencia de solyluz, acá se
+  // llega a este punto siempre después de un await (la respuesta de
+  // /api/lead), y en ese momento algunos navegadores mobile (Safari
+  // iPhone, Chrome Android) pueden considerar perdida la interacción del
+  // usuario y bloquear una ventana nueva. window.location.href navega la
+  // pestaña actual, nunca abre una ventana -- no hay nada que un
+  // bloqueador de popups pueda interceptar. La landing queda atrás en el
+  // historial, comportamiento esperado (igual que la landing puente de
+  // redsolyluz).
+  function openWhatsapp(leadRef, whatsappNumber) {
+    window.location.href = buildWhatsappUrl(leadRef, whatsappNumber);
+  }
+
+  // Flujo de CTA -- se espera la respuesta de /api/lead ANTES de abrir
+  // WhatsApp para poder incluir el lead_ref en el mensaje (igual que
+  // solyluz). Si falla o tarda más que el timeout, igual se abre WhatsApp
+  // (sin referencia). isProcessingLead protege contra doble click: el
+  // preventDefault() de arriba corta la navegación nativa del <a> en cada
+  // click, y mientras haya un request en curso se ignora.
+  var isProcessingLead = false;
+  var leadSentForSession = false;
+  var cachedLeadRef = null;
+  var cachedWhatsappNumber = null;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var btnWhatsapp = document.getElementById('btn-whatsapp');
     if (!btnWhatsapp) return;
 
-    btnWhatsapp.addEventListener('click', function() {
+    btnWhatsapp.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (isProcessingLead) return;
 
-      // ID único para este Lead
-      const eventId =
-        'lead_' +
-        Date.now() +
-        '_' +
-        Math.random().toString(36).substring(2, 10);
-
-      const fbp = getCookie('_fbp');
-      const fbc = getFbc();
-
-      // =====================================
-      // META PIXEL - LEAD (BROWSER)
-      // =====================================
-      if (typeof fbq === 'function') {
-        fbq('track', 'Lead', {}, {
-          eventID: eventId
-        });
+      // Ya se registró el Lead con éxito en esta sesión: se reusa el mismo
+      // lead_ref y el mismo número de WhatsApp que se guardó en esa
+      // conversión (mismo criterio que solyluz).
+      if (leadSentForSession) {
+        openWhatsapp(cachedLeadRef, cachedWhatsappNumber);
+        return;
       }
 
-      // =====================================
-      // META CONVERSIONS API - LEAD (SERVER)
-      // =====================================
-      fetch('/api/meta-conversion', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        keepalive: true,
-        body: JSON.stringify({
-          eventName: 'Lead',
-          eventSourceUrl: window.location.href,
-          eventId: eventId,
-          fbp: fbp,
-          fbc: fbc
-        }),
-      }).catch(function(err) {
-        console.error('Error enviando evento a Meta:', err);
-      });
+      isProcessingLead = true;
 
+      // Se resuelven una sola vez acá, antes de la llamada asincrónica, y
+      // se reusan tal cual en el payload de /api/lead y al abrir WhatsApp:
+      //   - eventId: mismo event_id que usa el evento Lead del Pixel más
+      //     abajo, necesario para que Meta pueda deduplicar Browser+CAPI.
+      //   - whatsappNumberForLead: mismo número que efectivamente abre
+      //     WhatsApp, para que coincida con lo guardado en Supabase.
+      var eventId = resolveEventId();
+      var whatsappNumberForLead = getWhatsappNumber();
+
+      sendLead(eventId, whatsappNumberForLead).then(function (result) {
+        cachedLeadRef = result.lead_ref;
+        leadSentForSession = result.ok;
+
+        // Evento Lead del navegador: se dispara acá, en el único punto
+        // donde leadSentForSession pasa de false a true -- nunca se manda
+        // más de una vez para el mismo Lead. Mismo event_id que ya viajó a
+        // /api/lead, para que Meta pueda deduplicar Browser+Server.
+        if (result.ok) {
+          cachedWhatsappNumber = whatsappNumberForLead;
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {}, { eventID: eventId });
+          }
+        }
+      }).finally(function () {
+        isProcessingLead = false;
+        openWhatsapp(cachedLeadRef, cachedWhatsappNumber || whatsappNumberForLead);
+      });
     });
   });
 </script>
