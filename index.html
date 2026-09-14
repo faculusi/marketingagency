@@ -1324,9 +1324,28 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
             Quiero mi usuario
           </span>
         </a>
-        <p class="text-[11px] font-bold uppercase tracking-wider text-green-400 animate-neon-flicker">
+        <p
+          id="btn-whatsapp-online"
+          class="text-[11px] font-bold uppercase tracking-wider text-green-400 animate-neon-flicker"
+        >
           🟢 Activación inmediata en línea
         </p>
+        <!-- Estado de la conexión con el número de WhatsApp activo: vacío
+             y oculto salvo mientras se resuelve el número, o si no se pudo
+             resolver ninguno. Ver el bloque de integración más abajo. -->
+        <p
+          id="btn-whatsapp-status"
+          hidden
+          class="text-center text-[11px] font-bold uppercase tracking-wider text-purple-200/90"
+        ></p>
+        <button
+          id="btn-whatsapp-retry"
+          type="button"
+          hidden
+          class="rounded-xl border border-purple-500/40 bg-purple-950/40 px-4 py-2 text-xs font-black uppercase tracking-wider text-purple-100 transition-transform duration-200 active:scale-95"
+        >
+          Reintentar
+        </button>
       </div>
     </div>
 
@@ -1459,7 +1478,14 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     LEAD_ENDPOINT: '/api/lead',
     PUBLIC_CONFIG_ENDPOINT: '/api/public-config',
     PAGEVIEW_ENDPOINT: '/api/pageview',
+    // Presupuesto de espera para resolver el número de WhatsApp (ms). El
+    // tope duro desde que la persona toca el botón es WHATSAPP_WAIT_MAX_MS;
+    // dentro de esa ventana entran el primer intento contra
+    // /api/public-config y UN único reintento corto (2500 + 2000 = 4500 ms,
+    // con margen bajo los 5000).
     PUBLIC_CONFIG_TIMEOUT_MS: 2500,
+    PUBLIC_CONFIG_RETRY_TIMEOUT_MS: 2000,
+    WHATSAPP_WAIT_MAX_MS: 5000,
     LEAD_REQUEST_TIMEOUT_MS: 6000,
     // Ventana de reutilización del event_id (minutos) -- doble click o
     // reintentos dentro de esta ventana reusan el mismo event_id en vez de
@@ -1469,11 +1495,22 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     WHATSAPP_MESSAGE: 'Hola, quiero mi 60% de bienvenida.',
     // Se agrega solo si el backend devolvió lead_ref.
     WHATSAPP_REF_LINE: 'Mi código de descuento es: {lead_ref}',
-    // Fallback SOLO si /api/public-config no responde a tiempo o falla. El
-    // número real "en vivo" lo administra panel-cajero -- no hay ningún
-    // número de anuncio hardcodeado acá (mismo criterio que config.js de
-    // solyluz/redsolyluz).
-    WHATSAPP_NUMBER_FALLBACK: '549xxxxxxx'
+    // Último número conocido (respaldo local): solo se reusa si se guardó
+    // hace menos de LAST_KNOWN_NUMBER_TTL_MINUTES -- las líneas se
+    // bloquean en horas, así que uno más viejo que eso no es confiable.
+    LAST_KNOWN_NUMBER_KEY: 'ma_last_known_wa_v1',
+    LAST_KNOWN_NUMBER_TTL_MINUTES: 60,
+    // Textos del estado de espera.
+    WHATSAPP_WAITING_MESSAGE: 'Conectando, un momento…',
+    WHATSAPP_UNAVAILABLE_MESSAGE: 'No pudimos conectarte en este momento, probá de nuevo.'
+    // NO hay ningún número de WhatsApp fijo acá, y no debe agregarse uno.
+    // Antes existía WHATSAPP_NUMBER_FALLBACK: '549xxxxxxx', que causó un
+    // bug real: al no ser todos dígitos, el backend lo guardaba como "549"
+    // y la persona terminaba en un wa.me muerto. Un número real
+    // hardcodeado tampoco sirve: nuestras líneas se bloquean en horas
+    // (cuatro números distintos en 24 hs) y volvería a mandar gente en
+    // silencio a una línea caída. El respaldo es la cadena de abajo
+    // (público -> último conocido < 1 h -> estado de espera).
   };
 
   function getCookie(name) {
@@ -1571,39 +1608,169 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     }
   })();
 
-  // Número de WhatsApp activo -- se resuelve en segundo plano apenas carga
-  // la página (mismo mecanismo que solyluz/redsolyluz: si /api/public-config
-  // falla, tarda de más, o no hay ningún número activo, se cae al fallback
-  // de acá arriba, nunca bloquea el CTA).
-  var activeWhatsappNumber = null;
+  // ── Validación del número de WhatsApp ───────────────────────────────
+  // ÚNICO criterio de "esto es un número usable" en toda la landing. Solo
+  // pasa una cadena de puros dígitos de largo plausible (E.164 admite
+  // hasta 15; un móvil argentino con 549 + 10 son 13). Cualquier otra
+  // cosa -- vacío, null, undefined, un placeholder con letras, un número
+  // cortado -- se trata como "no hay número" y va al estado de espera.
+  function isValidWhatsappNumber(value) {
+    return typeof value === 'string' && /^\d{8,15}$/.test(value);
+  }
 
-  (function resolveWhatsappNumber() {
+  // ── Último número conocido (respaldo local) ─────────────────────────
+  // Se guarda cada vez que /api/public-config devuelve un número válido, y
+  // solo se reusa si tiene menos de LAST_KNOWN_NUMBER_TTL_MINUTES.
+  //
+  // NOTA (cambio siguiente): cuando entre el esquema de 3 números activos
+  // en rotación, acá se va a guardar la LISTA de números activos en vez de
+  // uno solo -- el valor se guarda como objeto ({ number, saved_at })
+  // justamente para poder crecer a { numbers[], saved_at } sin romper a
+  // quien ya tenga algo guardado (un valor que no matchee el formato
+  // esperado se ignora solo y se reescribe).
+  function readLastKnownNumber() {
+    try {
+      var raw = localStorage.getItem(MA_CONFIG.LAST_KNOWN_NUMBER_KEY);
+      if (!raw) return null;
+
+      var stored = JSON.parse(raw);
+      if (!stored || typeof stored.saved_at !== 'number') return null;
+      if (!isValidWhatsappNumber(stored.number)) return null;
+
+      var ttlMs = MA_CONFIG.LAST_KNOWN_NUMBER_TTL_MINUTES * 60 * 1000;
+      if (Date.now() - stored.saved_at > ttlMs) {
+        localStorage.removeItem(MA_CONFIG.LAST_KNOWN_NUMBER_KEY);
+        return null;
+      }
+
+      return stored.number;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function storeLastKnownNumber(number) {
+    if (!isValidWhatsappNumber(number)) return;
+    try {
+      localStorage.setItem(
+        MA_CONFIG.LAST_KNOWN_NUMBER_KEY,
+        JSON.stringify({ number: number, saved_at: Date.now() })
+      );
+    } catch (e) {
+      /* localStorage no disponible: se sigue igual, solo sin respaldo local */
+    }
+  }
+
+  // GET /api/public-config con cache: 'no-store', para que ni el navegador
+  // ni ningún intermediario puedan devolver una respuesta vieja (el número
+  // activo cambia desde el panel varias veces por día). Devuelve el número
+  // ya validado, o null si falla, tarda de más, no hay ninguno activo
+  // (404) o lo que vuelve no es usable.
+  function fetchActiveWhatsappNumber(timeoutMs) {
     var endpoint = MA_CONFIG.API_BASE_URL + MA_CONFIG.PUBLIC_CONFIG_ENDPOINT;
     var controller = (window.AbortController) ? new AbortController() : null;
     var timeoutId = controller
-      ? setTimeout(function () { controller.abort(); }, MA_CONFIG.PUBLIC_CONFIG_TIMEOUT_MS)
+      ? setTimeout(function () { controller.abort(); }, timeoutMs)
       : null;
 
-    fetch(endpoint, { signal: controller ? controller.signal : undefined })
+    return fetch(endpoint, { cache: 'no-store', signal: controller ? controller.signal : undefined })
       .then(function (response) {
         if (!response.ok) return null;
         return response.json().catch(function () { return null; });
       })
       .then(function (data) {
         var number = (data && typeof data.whatsapp_number === 'string') ? data.whatsapp_number.trim() : '';
-        if (number) activeWhatsappNumber = number;
+        if (!isValidWhatsappNumber(number)) return null;
+        storeLastKnownNumber(number);
+        return number;
       })
       .catch(function (err) {
-        console.warn('No se pudo obtener el número de WhatsApp activo, se usa el fallback:', err);
+        console.warn('No se pudo obtener el número de WhatsApp activo:', err);
+        return null;
       })
       .finally(function () {
         if (timeoutId) clearTimeout(timeoutId);
       });
-  })();
-
-  function getWhatsappNumber() {
-    return activeWhatsappNumber || MA_CONFIG.WHATSAPP_NUMBER_FALLBACK;
   }
+
+  // ── Cadena de respaldo del número ───────────────────────────────────
+  // Orden, de mejor a peor:
+  //   1. /api/public-config (fuente de verdad en vivo).
+  //   2. Un único reintento corto del mismo endpoint -- cubre el caso más
+  //      común de fallo real: un timeout puntual de red.
+  //   3. El último número que SÍ funcionó, si tiene menos de 1 hora.
+  //   4. null -> no hay número: el CTA muestra el estado de espera y NUNCA
+  //      abre WhatsApp.
+  function resolveWhatsappNumberChain() {
+    return fetchActiveWhatsappNumber(MA_CONFIG.PUBLIC_CONFIG_TIMEOUT_MS)
+      .then(function (number) {
+        if (number) return number;
+        return fetchActiveWhatsappNumber(MA_CONFIG.PUBLIC_CONFIG_RETRY_TIMEOUT_MS);
+      })
+      .then(function (number) {
+        if (number) return number;
+        return readLastKnownNumber();
+      });
+  }
+
+  // La cadena arranca sola apenas carga la página (como antes), pero ahora
+  // queda memoizada en una promise: el click del CTA puede ESPERARLA en vez
+  // de leer una variable que quizá todavía no se llenó. Ese era el bug
+  // grande de esta landing -- el 23% de los Leads salía con el placeholder
+  // simplemente porque la persona tocaba el botón antes de que el fetch
+  // terminara, aunque ese fetch fuera a andar perfecto un instante después.
+  //
+  // Si la cadena termina sin número, el memo se limpia para que el botón
+  // "Reintentar" arranque una cadena nueva de cero.
+  var whatsappNumberPromise = null;
+
+  function getWhatsappNumberPromise() {
+    if (!whatsappNumberPromise) {
+      whatsappNumberPromise = resolveWhatsappNumberChain().then(
+        function (number) {
+          if (!number) whatsappNumberPromise = null;
+          return number;
+        },
+        function (err) {
+          console.warn('Falló la cadena de resolución del número de WhatsApp:', err);
+          whatsappNumberPromise = null;
+          return null;
+        }
+      );
+    }
+    return whatsappNumberPromise;
+  }
+
+  // Tope duro: pase lo que pase, a los WHATSAPP_WAIT_MAX_MS desde el click
+  // esto resuelve (con número o sin él). La cadena ya está acotada por
+  // construcción (timeout + reintento); esto es la garantía dura de que
+  // nadie se queda esperando indefinidamente. Si la cadena termina después,
+  // su resultado igual queda memoizado y el reintento es instantáneo.
+  function waitForWhatsappNumber() {
+    var pending = getWhatsappNumberPromise();
+
+    return new Promise(function (resolve) {
+      var settled = false;
+
+      var capId = setTimeout(function () {
+        if (settled) return;
+        settled = true;
+        resolve(null);
+      }, MA_CONFIG.WHATSAPP_WAIT_MAX_MS);
+
+      pending.then(function (number) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(capId);
+        resolve(number);
+      });
+    });
+  }
+
+  // Se dispara ya, al cargar la página: en la mayoría de los casos el
+  // número va a estar listo mucho antes de que la persona toque el CTA, y
+  // la espera del click es cero.
+  getWhatsappNumberPromise();
 
   // Envío del Lead al backend central -- mismo payload/criterio que
   // solyluz/script.js (sendLead). marketingagency no tiene apodo: se manda
@@ -1664,7 +1831,12 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       });
   }
 
+  // Devuelve null si el número no es usable (ver isValidWhatsappNumber).
+  // Quien llama DEBE tratar ese null como "no hay número" e ir al estado de
+  // espera -- nunca navegar igual: un 'https://wa.me/' pelado, o con un
+  // número incompleto, es exactamente el link muerto que esto evita.
   function buildWhatsappUrl(leadRef, whatsappNumber) {
+    if (!isValidWhatsappNumber(whatsappNumber)) return null;
     var message = MA_CONFIG.WHATSAPP_MESSAGE;
     if (leadRef) {
       message += '\n' + MA_CONFIG.WHATSAPP_REF_LINE.replace('{lead_ref}', leadRef);
@@ -1681,8 +1853,13 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
   // bloqueador de popups pueda interceptar. La landing queda atrás en el
   // historial, comportamiento esperado (igual que la landing puente de
   // redsolyluz).
+  // Devuelve false si no se pudo armar una URL válida -- en ese caso NO
+  // navega a ningún lado y el llamador muestra el estado de espera.
   function openWhatsapp(leadRef, whatsappNumber) {
-    window.location.href = buildWhatsappUrl(leadRef, whatsappNumber);
+    var url = buildWhatsappUrl(leadRef, whatsappNumber);
+    if (!url) return false;
+    window.location.href = url;
+    return true;
   }
 
   // Flujo de CTA -- se espera la respuesta de /api/lead ANTES de abrir
@@ -1700,48 +1877,124 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     var btnWhatsapp = document.getElementById('btn-whatsapp');
     if (!btnWhatsapp) return;
 
+    var onlineLine = document.getElementById('btn-whatsapp-online');
+    var statusLine = document.getElementById('btn-whatsapp-status');
+    var retryBtn = document.getElementById('btn-whatsapp-retry');
+
+    // ── Estados visuales del CTA ──────────────────────────────────────
+    // Los tres estados son excluyentes y siempre se entra por una de
+    // estas funciones, nunca tocando clases sueltas desde el flujo.
+    function showWaiting() {
+      btnWhatsapp.classList.add('opacity-50', 'pointer-events-none');
+      if (onlineLine) onlineLine.hidden = true;
+      if (retryBtn) retryBtn.hidden = true;
+      if (statusLine) {
+        statusLine.textContent = MA_CONFIG.WHATSAPP_WAITING_MESSAGE;
+        statusLine.hidden = false;
+      }
+    }
+
+    function showUnavailable() {
+      btnWhatsapp.classList.add('opacity-50', 'pointer-events-none');
+      if (onlineLine) onlineLine.hidden = true;
+      if (statusLine) {
+        statusLine.textContent = MA_CONFIG.WHATSAPP_UNAVAILABLE_MESSAGE;
+        statusLine.hidden = false;
+      }
+      if (retryBtn) retryBtn.hidden = false;
+    }
+
+    function clearStatus() {
+      btnWhatsapp.classList.remove('opacity-50', 'pointer-events-none');
+      if (statusLine) {
+        statusLine.hidden = true;
+        statusLine.textContent = '';
+      }
+      if (retryBtn) retryBtn.hidden = true;
+      if (onlineLine) onlineLine.hidden = false;
+    }
+
+    // Núcleo del CTA. Primero resuelve el número (esperando la cadena, con
+    // su tope duro) y recién ahí manda el Lead: si no hay número real, esta
+    // persona no va a ir a WhatsApp, así que tampoco corresponde registrar
+    // un Lead. Si no hay número, NUNCA se navega a wa.me -- se muestra el
+    // estado de espera con el botón de reintentar.
+    function startCtaFlow() {
+      if (isProcessingLead) return;
+      isProcessingLead = true;
+
+      // El cartel de "Conectando" solo aparece si la espera es realmente
+      // perceptible: en el caso normal el número ya está resuelto y el
+      // click sigue siendo instantáneo, sin ningún parpadeo de UI.
+      var waitingTimer = setTimeout(showWaiting, 150);
+
+      waitForWhatsappNumber().then(function (whatsappNumber) {
+        clearTimeout(waitingTimer);
+
+        if (!whatsappNumber) {
+          showUnavailable();
+          isProcessingLead = false;
+          return;
+        }
+
+        clearStatus();
+
+        // Se congelan acá, antes de la llamada asincrónica, y se reusan tal
+        // cual en el payload de /api/lead y al abrir WhatsApp:
+        //   - eventId: mismo event_id que usa el evento Lead del Pixel,
+        //     necesario para que Meta pueda deduplicar Browser+CAPI.
+        //   - whatsappNumber: mismo número que efectivamente abre WhatsApp,
+        //     para que coincida con lo guardado en Supabase.
+        var eventId = resolveEventId();
+
+        sendLead(eventId, whatsappNumber).then(function (result) {
+          cachedLeadRef = result.lead_ref;
+          leadSentForSession = result.ok;
+
+          // Evento Lead del navegador: se dispara acá, en el único punto
+          // donde leadSentForSession pasa de false a true -- nunca se manda
+          // más de una vez para el mismo Lead. Mismo event_id que ya viajó a
+          // /api/lead, para que Meta pueda deduplicar Browser+Server.
+          if (result.ok) {
+            cachedWhatsappNumber = whatsappNumber;
+            if (typeof fbq === 'function') {
+              fbq('track', 'Lead', {}, { eventID: eventId });
+            }
+          }
+        }).finally(function () {
+          isProcessingLead = false;
+          // El Lead puede haber fallado (se pierde la referencia, es
+          // recuperable), pero el número SÍ es real: se abre WhatsApp igual.
+          if (!openWhatsapp(cachedLeadRef, cachedWhatsappNumber || whatsappNumber)) {
+            showUnavailable();
+          }
+        });
+      });
+    }
+
     btnWhatsapp.addEventListener('click', function (e) {
       e.preventDefault();
       if (isProcessingLead) return;
 
       // Ya se registró el Lead con éxito en esta sesión: se reusa el mismo
       // lead_ref y el mismo número de WhatsApp que se guardó en esa
-      // conversión (mismo criterio que solyluz).
-      if (leadSentForSession) {
-        openWhatsapp(cachedLeadRef, cachedWhatsappNumber);
+      // conversión (mismo criterio que solyluz). Si por lo que sea ese
+      // número ya no sirve, se vuelve a resolver desde cero en vez de
+      // navegar a un link roto.
+      if (leadSentForSession && openWhatsapp(cachedLeadRef, cachedWhatsappNumber)) {
         return;
       }
 
-      isProcessingLead = true;
-
-      // Se resuelven una sola vez acá, antes de la llamada asincrónica, y
-      // se reusan tal cual en el payload de /api/lead y al abrir WhatsApp:
-      //   - eventId: mismo event_id que usa el evento Lead del Pixel más
-      //     abajo, necesario para que Meta pueda deduplicar Browser+CAPI.
-      //   - whatsappNumberForLead: mismo número que efectivamente abre
-      //     WhatsApp, para que coincida con lo guardado en Supabase.
-      var eventId = resolveEventId();
-      var whatsappNumberForLead = getWhatsappNumber();
-
-      sendLead(eventId, whatsappNumberForLead).then(function (result) {
-        cachedLeadRef = result.lead_ref;
-        leadSentForSession = result.ok;
-
-        // Evento Lead del navegador: se dispara acá, en el único punto
-        // donde leadSentForSession pasa de false a true -- nunca se manda
-        // más de una vez para el mismo Lead. Mismo event_id que ya viajó a
-        // /api/lead, para que Meta pueda deduplicar Browser+Server.
-        if (result.ok) {
-          cachedWhatsappNumber = whatsappNumberForLead;
-          if (typeof fbq === 'function') {
-            fbq('track', 'Lead', {}, { eventID: eventId });
-          }
-        }
-      }).finally(function () {
-        isProcessingLead = false;
-        openWhatsapp(cachedLeadRef, cachedWhatsappNumber || whatsappNumberForLead);
-      });
+      startCtaFlow();
     });
+
+    if (retryBtn) {
+      retryBtn.addEventListener('click', function () {
+        if (isProcessingLead) return;
+        showWaiting();
+        startCtaFlow();
+      });
+    }
   });
 </script>
 </body>
