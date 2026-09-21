@@ -1555,7 +1555,10 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       : 'lead-' + Date.now() + '-' + Math.random().toString(16).slice(2);
   }
 
-  function resolveEventId() {
+  // Devuelve el objeto guardado si sigue vigente, o null. Se separó de
+  // resolveEventId() para poder leer también el número de WhatsApp que
+  // quedó asociado a esa conversión, sin duplicar el chequeo de TTL.
+  function readStoredEventState() {
     var ttlMs = MA_CONFIG.EVENT_ID_TTL_MINUTES * 60 * 1000;
     var stored = null;
     try {
@@ -1565,8 +1568,15 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     }
     var isValid = stored && stored.event_id && stored.created_at &&
       (Date.now() - stored.created_at) < ttlMs;
-    if (isValid) return stored.event_id;
+    return isValid ? stored : null;
+  }
 
+  function resolveEventId() {
+    var stored = readStoredEventState();
+    if (stored) return stored.event_id;
+
+    // Conversión nueva: se descarta lo anterior, incluido cualquier número
+    // recordado -- pertenecía al lead viejo y ya no aplica.
     var fresh = { event_id: generateId(), created_at: Date.now() };
     try {
       sessionStorage.setItem(EVENT_ID_STORAGE_KEY, JSON.stringify(fresh));
@@ -1574,6 +1584,37 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       /* sessionStorage no disponible: se sigue igual, solo sin persistencia */
     }
     return fresh.event_id;
+  }
+
+  // El número de WhatsApp se guarda DENTRO del mismo objeto que ya persiste
+  // el event_id. Sin clave nueva y sin TTL propio: el número tiene la misma
+  // vigencia que la conversión a la que pertenece. Tampoco se bumpeó
+  // EVENT_ID_STORAGE_KEY, porque eso habría invalidado de golpe todas las
+  // conversiones en curso y generado un Lead duplicado por cada persona
+  // dentro de la ventana de 30 minutos.
+  //
+  // Se escribe por merge sobre lo que ya está, nunca reemplazando el objeto
+  // entero: created_at tiene que seguir siendo el de la conversión original
+  // para que la ventana de deduplicación no se corra.
+  function rememberWhatsappNumber(number) {
+    if (!isValidWhatsappNumber(number)) return;
+    var stored = readStoredEventState();
+    if (!stored) return;
+    stored.whatsapp_number = number;
+    try {
+      sessionStorage.setItem(EVENT_ID_STORAGE_KEY, JSON.stringify(stored));
+    } catch (e) {
+      /* sessionStorage no disponible: se sigue igual, solo sin persistencia */
+    }
+  }
+
+  // Número ya asociado a la conversión vigente, si lo hay. Un objeto viejo
+  // (guardado antes de este cambio) simplemente no lo trae: se tolera la
+  // ausencia y el llamador pide uno nuevo al pool.
+  function readRememberedWhatsappNumber() {
+    var stored = readStoredEventState();
+    if (!stored || !isValidWhatsappNumber(stored.whatsapp_number)) return null;
+    return stored.whatsapp_number;
   }
 
   // PageView interno (solo Supabase, nunca Meta CAPI -- el Pixel del
@@ -1862,6 +1903,15 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     return true;
   }
 
+  // Número a usar para esta conversión: el recordado si la conversión ya
+  // está en curso, o una tirada nueva del pool si es la primera vez. Se
+  // devuelve siempre una promise para no cambiar la forma del flujo del CTA.
+  function resolveWhatsappNumberForLead() {
+    var remembered = readRememberedWhatsappNumber();
+    if (remembered) return Promise.resolve(remembered);
+    return waitForWhatsappNumber();
+  }
+
   // Flujo de CTA -- se espera la respuesta de /api/lead ANTES de abrir
   // WhatsApp para poder incluir el lead_ref en el mensaje (igual que
   // solyluz). Si falla o tarda más que el timeout, igual se abre WhatsApp
@@ -1928,7 +1978,15 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       // click sigue siendo instantáneo, sin ningún parpadeo de UI.
       var waitingTimer = setTimeout(showWaiting, 150);
 
-      waitForWhatsappNumber().then(function (whatsappNumber) {
+      // CONSISTENCIA: si esta conversión ya tiene un número asociado, se
+      // reusa ese y no se pide otro al pool. Antes el número solo vivía en
+      // cachedWhatsappNumber (memoria), así que sobrevivía a un doble click
+      // pero NO a una recarga: al recargar dentro de los 30 minutos se
+      // reusaba el mismo event_id, el pool devolvía otra línea, /api/lead
+      // respondía 409 sin tocar la fila (no reescribe whatsapp_phone) y la
+      // persona terminaba escribiéndole a un número distinto del que quedó
+      // guardado en Supabase para ese Lead.
+      resolveWhatsappNumberForLead().then(function (whatsappNumber) {
         clearTimeout(waitingTimer);
 
         if (!whatsappNumber) {
@@ -1957,6 +2015,9 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
           // /api/lead, para que Meta pueda deduplicar Browser+Server.
           if (result.ok) {
             cachedWhatsappNumber = whatsappNumber;
+            // Se persiste junto al event_id para que sobreviva a una
+            // recarga, no solo al doble click.
+            rememberWhatsappNumber(whatsappNumber);
             if (typeof fbq === 'function') {
               fbq('track', 'Lead', {}, { eventID: eventId });
             }
