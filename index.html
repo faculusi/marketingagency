@@ -1707,8 +1707,15 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
   // activo cambia desde el panel varias veces por día). Devuelve el número
   // ya validado, o null si falla, tarda de más, no hay ninguno activo
   // (404) o lo que vuelve no es usable.
+  //
+  // Si esta conversión ya venía con un número, se lo manda en ?current=.
+  // El backend lo devuelve TAL CUAL si esa línea sigue en rotación, y lo
+  // ignora sorteando otra si la sacaron del pool. La decisión es del
+  // servidor: la landing no elige, solo dice con qué venía trabajando.
   function fetchActiveWhatsappNumber(timeoutMs) {
     var endpoint = MA_CONFIG.API_BASE_URL + MA_CONFIG.PUBLIC_CONFIG_ENDPOINT;
+    var current = readRememberedWhatsappNumber();
+    if (current) endpoint += '?current=' + encodeURIComponent(current);
     var controller = (window.AbortController) ? new AbortController() : null;
     var timeoutId = controller
       ? setTimeout(function () { controller.abort(); }, timeoutMs)
@@ -1750,7 +1757,11 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       })
       .then(function (number) {
         if (number) return number;
-        return readLastKnownNumber();
+        // El backend no contestó: no hay forma de saber si la línea sigue
+        // en rotación. Se prefiere el número de ESTA conversión antes que
+        // el último conocido -- es igual de imposible de verificar, pero
+        // al menos coincide con el que quedó guardado en el Lead.
+        return readRememberedWhatsappNumber() || readLastKnownNumber();
       });
   }
 
@@ -1903,12 +1914,17 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     return true;
   }
 
-  // Número a usar para esta conversión: el recordado si la conversión ya
-  // está en curso, o una tirada nueva del pool si es la primera vez. Se
-  // devuelve siempre una promise para no cambiar la forma del flujo del CTA.
+  // Número a usar para esta conversión. Ya no hay atajo al número
+  // recordado: ese número YA viajó al backend en ?current= al cargar la
+  // página, así que si su línea sigue en rotación la cadena devuelve ese
+  // mismo, y si la sacaron del pool devuelve otra a propósito. Antes el
+  // atajo ganaba siempre y la persona volvía a la línea muerta durante los
+  // 30 minutos de la ventana.
+  //
+  // COSTO ACEPTADO: cuando cambia de línea, events.whatsapp_phone queda con
+  // la original. El registro histórico NO se reescribe; el lead_ref del
+  // mensaje sigue siendo la clave para encontrar el lead desde el panel.
   function resolveWhatsappNumberForLead() {
-    var remembered = readRememberedWhatsappNumber();
-    if (remembered) return Promise.resolve(remembered);
     return waitForWhatsappNumber();
   }
 
@@ -1978,14 +1994,15 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       // click sigue siendo instantáneo, sin ningún parpadeo de UI.
       var waitingTimer = setTimeout(showWaiting, 150);
 
-      // CONSISTENCIA: si esta conversión ya tiene un número asociado, se
-      // reusa ese y no se pide otro al pool. Antes el número solo vivía en
-      // cachedWhatsappNumber (memoria), así que sobrevivía a un doble click
-      // pero NO a una recarga: al recargar dentro de los 30 minutos se
-      // reusaba el mismo event_id, el pool devolvía otra línea, /api/lead
-      // respondía 409 sin tocar la fila (no reescribe whatsapp_phone) y la
-      // persona terminaba escribiéndole a un número distinto del que quedó
-      // guardado en Supabase para ese Lead.
+      // CONSISTENCIA: el número de esta conversión se mantiene mientras su
+      // línea siga en rotación. No se decide acá -- se decide en el
+      // servidor, que recibió el número recordado en ?current= y lo
+      // confirmó o lo reemplazó. Antes el número solo vivía en
+      // cachedWhatsappNumber (memoria): sobrevivía a un doble click pero NO
+      // a una recarga, y al recargar dentro de los 30 minutos el pool
+      // devolvía otra línea, /api/lead respondía 409 sin tocar la fila (no
+      // reescribe whatsapp_phone) y la persona terminaba escribiéndole a un
+      // número distinto del que quedó guardado en Supabase para ese Lead.
       resolveWhatsappNumberForLead().then(function (whatsappNumber) {
         clearTimeout(waitingTimer);
 

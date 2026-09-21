@@ -1,37 +1,34 @@
 # CURRENT_WORK.md — marketingagency
 
-_Estado al 2026-09-19. Reemplazar esta sección en la próxima actualización, no acumular._
+_Estado al 2026-09-21. Reemplazar esta sección en la próxima actualización, no acumular._
 
 ## Objetivo actual
 
-Que el número de WhatsApp sobreviva a una recarga, no solo al doble click, ahora que el backend sortea una línea de un pool en rotación.
+Que la persona mantenga su línea de WhatsApp **mientras esa línea siga en rotación**, y pase a otra si se la sacó del pool. Antes, una vez que la conversión tenía número recordado, volvía siempre a ese durante los 30 minutos de la ventana, aunque la línea estuviera caída.
 
 ## Estado
 
-**Código completo en la rama `claude/marketingagency-numero-consistente`, pusheada. Sin PR, sin merge a `main`, sin deploy.**
-
-Producción sigue con el código viejo. Es consistente dentro de una carga, pero pierde el número al recargar. Inofensivo **mientras haya una sola línea en rotación**, que es el estado actual.
+**En `main` y deployado.** El pool está funcionando en producción con 2 líneas en rotación.
 
 ## Completado
 
-- `readStoredEventState()` separado de `resolveEventId()`, para leer el número sin duplicar el chequeo de TTL.
-- `rememberWhatsappNumber()` escribe por merge en `ma_event_id_v1`, sin pisar `created_at`.
-- `resolveWhatsappNumberForLead()` devuelve el número recordado o, si no hay, una tirada nueva del pool.
-- Un objeto viejo sin `whatsapp_number` se tolera: se pide uno nuevo.
+- La landing manda el número recordado en `?current=` dentro del pedido a `/api/public-config` que **ya hacía al cargar la página**: sin consulta nueva, sin espera nueva en el click.
+- `resolveWhatsappNumberForLead()` ya no ataja al número recordado — espera la cadena y usa lo que decidió el servidor.
+- **La landing no elige:** sólo dice con qué venía trabajando (ver `DECISIONS.md`).
+- Con el backend caído: reintento corto → número de esta conversión → último conocido (< 1 h) → estado de espera.
 
-Nada más se tocó. Esta landing **ya** esperaba a que resolviera `/api/public-config` y **ya** no tenía placeholder. Pixel, CAPI, `event_id`, el dedupe Browser+CAPI, la ventana de 30 min, el copy y los tiempos quedan igual.
+Nada más se tocó. Pixel, CAPI, `event_id`, el dedupe Browser+CAPI, la ventana de 30 min, el copy y los tiempos quedan igual.
 
 ## Pendiente
 
-Nada en este repo.
-
-## Próxima acción
-
-Esperar al backend y al panel. Este repo va **cuarto** en el orden de despliegue, junto con las otras dos landings.
+Nada en este repo. Falta la prueba manual de Facu: sacar una línea de rotación desde el panel y recargar la landing.
 
 ## Riesgos / No tocar
 
 - El dominio de producción es **`marketingagency-three.vercel.app`**, no `marketingagency.vercel.app`.
+- **El backend va siempre primero.** Contra un backend sin `?current=`, el parámetro se ignora y se sortea: no rompe nada, pero anula el arreglo.
+- **`events.whatsapp_phone` NO se reescribe.** Si la persona cambia de línea a mitad de la ventana, el registro queda con la original: `/api/lead` devuelve 409 y no toca la fila. Costo aceptado.
+- **Una pestaña ya abierta no se entera.** Aceptado, no se arregla.
 - No bumpear `EVENT_ID_STORAGE_KEY`, y no reemplazar el objeto guardado: escribir siempre por merge para no correr la ventana de dedupe.
 - Nunca hardcodear un número de WhatsApp de respaldo.
 
