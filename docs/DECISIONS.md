@@ -49,3 +49,16 @@ Decisiones que Claude debe recordar para no romper el sistema. Solo se listan la
 **Nada de esto toca Meta:** ni el Pixel, ni `event_id`, ni el dedupe Browser+CAPI, ni la ventana de 30 minutos.
 
 **Estado:** Vigente. Fuente: `index.html` (`fetchActiveWhatsappNumber`, `resolveWhatsappNumberChain`, `resolveWhatsappNumberForLead`), 2026-09-21.
+
+### Variante visual por `?v=` (solo visual, no viaja al backend)
+
+**Qué se decidió (2026-10-29):** la landing muestra arriba la imagen o el video del anuncio del que viene la persona según `?v=` (`zeus`, `mansion`, `perro`, …). El valor se valida contra las claves de `anuncios` de `contenido.js`; si no existe o no viene, se usa `anuncioPorDefecto`. Las rutas de imagen/video salen solo del contenido, nunca de la URL.
+**Motivo:** que la landing continúe visualmente el anuncio. `v` **no** se manda a `/api/lead` ni a `/api/pageview`: el anuncio ya viaja en `ad_id` / `ad_name`, y `LANDING_VARIANT` sigue siendo `'marketingagency'`, así no hubo que tocar backend ni panel.
+**Estado:** Vigente. Fuente: script de variante en el `<head>` de `index.html`.
+
+### Textos y anuncios editables en `contenido.js`, con respaldo en `index.html`
+
+**Qué se decidió (2026-10-29):** todos los textos y la lista de anuncios viven en `contenido.js` (raíz del repo), para editarlos desde GitHub sin tocar `index.html`. `index.html` tiene un respaldo igual: si `contenido.js` falta, tiene un error o le falta un campo, se usa el respaldo **para ese campo**. Todo se inserta con `textContent`.
+**El CTA y el tracking nunca dependen de `contenido.js`.** La única línea del JS de integración que lo lee es `WHATSAPP_MESSAGE`, con respaldo `'Hola! Quiero mi usuario con el 40% de bienvenida.'`. El botón secundario no tiene flujo propio: hace `click()` sobre `#btn-whatsapp` (misma protección de doble click, nunca dos Leads).
+**No renombrar** `btn-whatsapp`, `btn-whatsapp-online`, `btn-whatsapp-status`, `btn-whatsapp-retry` ni quitar del CSS `.opacity-50`, `.pointer-events-none` y `[hidden]{display:none!important}`: los usa el JS del CTA.
+**Estado:** Vigente. Fuente: `contenido.js`, `index.html`, 2026-10-29.

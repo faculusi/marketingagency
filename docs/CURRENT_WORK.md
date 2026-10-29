@@ -1,37 +1,36 @@
 # CURRENT_WORK.md — marketingagency
 
-_Estado al 2026-09-21. Reemplazar esta sección en la próxima actualización, no acumular._
+_Estado al 2026-10-29. Reemplazar esta sección en la próxima actualización, no acumular._
 
 ## Objetivo actual
 
-Que la persona mantenga su línea de WhatsApp **mientras esa línea siga en rotación**, y pase a otra si se la sacó del pool. Antes, una vez que la conversión tenía número recordado, volvía siempre a ese durante los 30 minutos de la ventana, aunque la línea estuviera caída.
+Landing v2: diseño nuevo que muestra arriba la imagen o el video del anuncio del que viene la persona (`?v=`), con textos y anuncios editables en `contenido.js`. El tracking y la conexión con el backend no cambiaron.
 
 ## Estado
 
-**En `main` y deployado.** El pool está funcionando en producción con 2 líneas en rotación.
+**Mergeado a `main`** (Vercel publica en `marketingagency-three.vercel.app`). Facu revisó la vista previa desde el celular. La prueba en producción la hace Facu desde el celular; desde la sesión de Claude no hay acceso de red a Vercel.
 
 ## Completado
 
-- La landing manda el número recordado en `?current=` dentro del pedido a `/api/public-config` que **ya hacía al cargar la página**: sin consulta nueva, sin espera nueva en el click.
-- `resolveWhatsappNumberForLead()` ya no ataja al número recordado — espera la cadena y usa lo que decidió el servidor.
-- **La landing no elige:** sólo dice con qué venía trabajando (ver `DECISIONS.md`).
-- Con el backend caído: reintento corto → número de esta conversión → último conocido (< 1 h) → estado de espera.
-
-Nada más se tocó. Pixel, CAPI, `event_id`, el dedupe Browser+CAPI, la ventana de 30 min, el copy y los tiempos quedan igual.
+- Diseño nuevo con CSS propio; se sacó el Tailwind embebido (~70 KB) y "Jugadores Recientes" (eran datos inventados). Fuente Lilita One alojada en `fuentes/`.
+- `contenido.js` con respaldo campo por campo en `index.html` (ver `DECISIONS.md`).
+- Variante visual por `?v=` con 8 anuncios (`zeus`, `bufon`, `toros`, `mansion`, `princesa`, `perro`, `panda`, `perroverde`); por defecto `zeus`. Precarga de la imagen del anuncio en el `<head>`.
+- Botón secundario que reusa el handler del principal (un solo Lead).
+- Única línea tocada en el JS de integración: `WHATSAPP_MESSAGE` (mensaje 40%).
 
 ## Pendiente
 
-Nada en este repo. Falta la prueba manual de Facu: sacar una línea de rotación desde el panel y recargar la landing.
+- Prueba de Facu en producción: `?v=zeus&campaign_id=TEST&ad_id=TEST&fbclid=TEST` → `/api/pageview` OK; al tocar el botón `/api/lead` 200, `fbq Lead` con el mismo `eventID`, WhatsApp con número del pool + mensaje 40% + `lead_ref`. En Meta → Probar eventos: PageView y Lead deduplicados. Si algo falla: volver a la versión anterior desde Vercel, no arreglar en producción.
+- Lighthouse en celular sobre producción (objetivo: Performance ≥ 90, LCP < 2,5 s): sin medir todavía.
+- Reemplazar `[CONDICIONES DEL BONO]` en `contenido.js` por el texto real.
+- `logo.webp` (raíz) quedó sin uso.
 
 ## Riesgos / No tocar
 
-- El dominio de producción es **`marketingagency-three.vercel.app`**, no `marketingagency.vercel.app`.
-- **El backend va siempre primero.** Contra un backend sin `?current=`, el parámetro se ignora y se sortea: no rompe nada, pero anula el arreglo.
-- **`events.whatsapp_phone` NO se reescribe.** Si la persona cambia de línea a mitad de la ventana, el registro queda con la original: `/api/lead` devuelve 409 y no toca la fila. Costo aceptado.
-- **Una pestaña ya abierta no se entera.** Aceptado, no se arregla.
-- No bumpear `EVENT_ID_STORAGE_KEY`, y no reemplazar el objeto guardado: escribir siempre por merge para no correr la ventana de dedupe.
-- Nunca hardcodear un número de WhatsApp de respaldo.
+- El backend solo acepta pedidos de `marketingagency-three.vercel.app` (CORS): en las vistas previas de Vercel el botón muestra "No pudimos conectarte". Es esperado.
+- No renombrar los ids `btn-whatsapp*` ni quitar `.opacity-50`, `.pointer-events-none` y `[hidden]` del CSS: los usa el JS del CTA.
+- No bumpear `EVENT_ID_STORAGE_KEY`; escribir siempre por merge. Nunca hardcodear un número de WhatsApp de respaldo.
 
 ## Archivos relevantes
 
-`index.html` (todo el sitio, HTML/CSS/JS embebido).
+`index.html` (markup, CSS, respaldo del contenido y JS de integración), `contenido.js` (textos y anuncios), `creativos/` (imágenes y videos).
