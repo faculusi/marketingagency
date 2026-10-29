@@ -3,1214 +3,338 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Celu +60% - Beneficio Exclusivo</title>
-<style>
-/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
-@layer properties;
-@layer theme, base, components, utilities;
-@layer theme {
-  :root, :host {
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial,
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
-    --color-amber-400: oklch(82.8% 0.189 84.429);
-    --color-amber-500: oklch(76.9% 0.188 70.08);
-    --color-yellow-200: oklch(94.5% 0.129 101.54);
-    --color-yellow-400: oklch(85.2% 0.199 91.936);
-    --color-yellow-500: oklch(79.5% 0.184 86.047);
-    --color-green-400: oklch(79.2% 0.209 151.711);
-    --color-green-500: oklch(72.3% 0.219 149.579);
-    --color-purple-200: oklch(90.2% 0.063 306.703);
-    --color-purple-300: oklch(82.7% 0.119 306.383);
-    --color-purple-400: oklch(71.4% 0.203 305.504);
-    --color-purple-500: oklch(62.7% 0.265 303.9);
-    --color-purple-950: oklch(29.1% 0.149 302.717);
-    --color-fuchsia-400: oklch(74% 0.238 322.16);
-    --color-fuchsia-500: oklch(66.7% 0.295 322.15);
-    --color-black: #000;
-    --color-white: #fff;
-    --spacing: 0.25rem;
-    --container-xs: 20rem;
-    --container-md: 28rem;
-    --text-xs: 0.75rem;
-    --text-xs--line-height: calc(1 / 0.75);
-    --text-sm: 0.875rem;
-    --text-sm--line-height: calc(1.25 / 0.875);
-    --text-lg: 1.125rem;
-    --text-lg--line-height: calc(1.75 / 1.125);
-    --text-2xl: 1.5rem;
-    --text-2xl--line-height: calc(2 / 1.5);
-    --text-6xl: 3.75rem;
-    --text-6xl--line-height: 1;
-    --font-weight-bold: 700;
-    --font-weight-extrabold: 800;
-    --font-weight-black: 900;
-    --tracking-tighter: -0.05em;
-    --tracking-tight: -0.025em;
-    --tracking-wide: 0.025em;
-    --tracking-wider: 0.05em;
-    --leading-relaxed: 1.625;
-    --radius-lg: 0.5rem;
-    --radius-xl: 0.75rem;
-    --radius-2xl: 1rem;
-    --radius-3xl: 1.5rem;
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    --default-transition-duration: 150ms;
-    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    --default-font-family: var(--font-sans);
-    --default-mono-font-family: var(--font-mono);
-  }
-}
-@layer base {
-  *, ::after, ::before, ::backdrop, ::file-selector-button {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: 0 solid;
-  }
-  html, :host {
-    line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-    tab-size: 4;
-    font-family: var(--default-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
-    font-feature-settings: var(--default-font-feature-settings, normal);
-    font-variation-settings: var(--default-font-variation-settings, normal);
-    -webkit-tap-highlight-color: transparent;
-  }
-  hr {
-    height: 0;
-    color: inherit;
-    border-top-width: 1px;
-  }
-  abbr:where([title]) {
-    -webkit-text-decoration: underline dotted;
-    text-decoration: underline dotted;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-size: inherit;
-    font-weight: inherit;
-  }
-  a {
-    color: inherit;
-    -webkit-text-decoration: inherit;
-    text-decoration: inherit;
-  }
-  b, strong {
-    font-weight: bolder;
-  }
-  code, kbd, samp, pre {
-    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
-    font-feature-settings: var(--default-mono-font-feature-settings, normal);
-    font-variation-settings: var(--default-mono-font-variation-settings, normal);
-    font-size: 1em;
-  }
-  small {
-    font-size: 80%;
-  }
-  sub, sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-  }
-  sub {
-    bottom: -0.25em;
-  }
-  sup {
-    top: -0.5em;
-  }
-  table {
-    text-indent: 0;
-    border-color: inherit;
-    border-collapse: collapse;
-  }
-  :-moz-focusring:where(:not(iframe)) {
-    outline: auto;
-  }
-  progress {
-    vertical-align: baseline;
-  }
-  summary {
-    display: list-item;
-  }
-  ol, ul, menu {
-    list-style: none;
-  }
-  img, svg, video, canvas, audio, iframe, embed, object {
-    display: block;
-    vertical-align: middle;
-  }
-  img, video {
-    max-width: 100%;
-    height: auto;
-  }
-  button, input, select, optgroup, textarea, ::file-selector-button {
-    font: inherit;
-    font-feature-settings: inherit;
-    font-variation-settings: inherit;
-    letter-spacing: inherit;
-    color: inherit;
-    border-radius: 0;
-    background-color: transparent;
-    opacity: 1;
-  }
-  :where(select:is([multiple], [size])) optgroup {
-    font-weight: bolder;
-  }
-  :where(select:is([multiple], [size])) optgroup option {
-    padding-inline-start: 20px;
-  }
-  ::file-selector-button {
-    margin-inline-end: 4px;
-  }
-  ::placeholder {
-    opacity: 1;
-  }
-  @supports (not (-webkit-appearance: -apple-pay-button)) or (contain-intrinsic-size: 1px) {
-    ::placeholder {
-      color: currentcolor;
-      @supports (color: color-mix(in lab, red, red)) {
-        color: color-mix(in oklab, currentcolor 50%, transparent);
+  <meta name="theme-color" content="#140826" />
+  <title>Red Sol y Luz — Bono de bienvenida</title>
+  <link rel="icon" type="image/png" href="creativos/icono.png" />
+  <link rel="preload" href="fuentes/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Textos y anuncios editables. Si falta o tiene un error, el script de
+       abajo usa el respaldo: el botón y el tracking nunca dependen de él. -->
+  <script src="contenido.js"></script>
+  <script>
+  // ============================================================================
+  // Variante visual por ?v= (SOLO visual: no viaja al backend -- el anuncio
+  // ya viaja en ad_id / ad_name). Mezcla contenido.js con este respaldo
+  // campo por campo, elige el anuncio y precarga su imagen (es el elemento
+  // más grande de la pantalla). Las rutas de imagen/video salen solo del
+  // contenido, nunca de la URL.
+  // ============================================================================
+  (function () {
+    var RESPALDO = {
+      bono: '+40%',
+      bonoTexto: 'Bono de bienvenida',
+      bonoDetalle: 'en tu primera carga',
+      boton: 'Quiero mi usuario',
+      atencion: 'Te atiende una persona real · las 24 hs',
+      pasosTitulo: 'Cómo funciona',
+      pasos: [
+        { titulo: 'Tocá el botón', texto: 'Se abre WhatsApp con el mensaje listo.' },
+        { titulo: 'Te creamos el usuario', texto: 'Una persona te atiende en el momento.' },
+        { titulo: 'Cargás y recibís el +40%', texto: 'Billetera virtual o transferencia.' }
+      ],
+      beneficios: ['Activos 24 hs', 'Carga rápida', 'Retiros por WhatsApp'],
+      legal: 'Solo mayores de 18 · Jugá con responsabilidad',
+      condiciones: 'Promoción por tiempo limitado. [CONDICIONES DEL BONO]',
+      anuncioPorDefecto: 'zeus',
+      anuncios: {
+        zeus:       { tipo: 'imagen', imagen: 'creativos/zeus.webp',       ancho: 780, alto: 579, titulo: 'Recibí tu gran bono',          subtitulo: 'Arrancá hoy' },
+        bufon:      { tipo: 'imagen', imagen: 'creativos/bufon.webp',      ancho: 780, alto: 680, titulo: 'Confianza asegurada',          subtitulo: 'Te atiende una persona real' },
+        toros:      { tipo: 'imagen', imagen: 'creativos/toros.webp',      ancho: 780, alto: 533, titulo: 'No te quedes afuera',          subtitulo: 'Activos las 24 hs' },
+        mansion:    { tipo: 'arte',   imagen: 'creativos/mansion.webp',    ancho: 780, alto: 613, titulo: 'Entrá a la mansión encantada', subtitulo: 'Pedí tu usuario con tu beneficio' },
+        princesa:   { tipo: 'arte',   imagen: 'creativos/princesa.webp',   ancho: 780, alto: 731, titulo: 'Desbloqueá tu suerte',         subtitulo: 'Te atiende una persona real' },
+        perro:      { tipo: 'video',  imagen: 'creativos/perro.webp',      video: 'creativos/perro.mp4',      ancho: 780, alto: 660, titulo: 'Cargá desde el celu',          subtitulo: 'Activos las 24 hs' },
+        panda:      { tipo: 'video',  imagen: 'creativos/panda.webp',      video: 'creativos/panda.mp4',      ancho: 780, alto: 660, titulo: 'Relajate, nosotros cargamos',  subtitulo: 'Te atiende una persona real' },
+        perroverde: { tipo: 'video',  imagen: 'creativos/perroverde.webp', video: 'creativos/perroverde.mp4', ancho: 780, alto: 660, titulo: 'Cargá desde el celu',          subtitulo: 'Activos las 24 hs' }
       }
+    };
+    var CLAVE_VALIDA = /^[a-z0-9_-]{1,40}$/;
+    var TEXTOS = ['bono', 'bonoTexto', 'bonoDetalle', 'boton', 'atencion',
+      'pasosTitulo', 'legal', 'condiciones'];
+
+    function texto(v) {
+      return typeof v === 'string' && v.trim() !== '' ? v : null;
     }
-  }
-  textarea {
-    resize: vertical;
-  }
-  ::-webkit-search-decoration {
-    -webkit-appearance: none;
-  }
-  ::-webkit-date-and-time-value {
-    min-height: 1lh;
-    text-align: inherit;
-  }
-  ::-webkit-datetime-edit {
-    display: inline-flex;
-  }
-  ::-webkit-datetime-edit-fields-wrapper {
-    padding: 0;
-  }
-  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
-    padding-block: 0;
-  }
-  ::-webkit-calendar-picker-indicator {
-    line-height: 1;
-  }
-  :-moz-ui-invalid {
-    box-shadow: none;
-  }
-  button, input:where([type='button'], [type='reset'], [type='submit']), ::file-selector-button {
-    appearance: button;
-  }
-  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
-    height: auto;
-  }
-  [hidden]:where(:not([hidden='until-found'])) {
-    display: none!important;
-  }
-}
-@layer utilities {
-  .pointer-events-none {
-    pointer-events: none;
-  }
-  .absolute {
-    position: absolute;
-  }
-  .relative {
-    position: relative;
-  }
-  .inset-y-0 {
-    inset-block: 0px;
-  }
-  .-top-6 {
-    top: calc(var(--spacing) * -6);
-  }
-  .-top-40 {
-    top: calc(var(--spacing) * -40);
-  }
-  .top-1\/3 {
-    top: calc(1 / 3 * 100%);
-  }
-  .top-24 {
-    top: calc(var(--spacing) * 24);
-  }
-  .right-4 {
-    right: calc(var(--spacing) * 4);
-  }
-  .bottom-1\/3 {
-    bottom: calc(1 / 3 * 100%);
-  }
-  .bottom-10 {
-    bottom: calc(var(--spacing) * 10);
-  }
-  .left-0 {
-    left: 0px;
-  }
-  .left-1\/2 {
-    left: calc(1 / 2 * 100%);
-  }
-  .left-4 {
-    left: calc(var(--spacing) * 4);
-  }
-  .mx-auto {
-    margin-inline: auto;
-  }
-  .my-2\.5 {
-    margin-block: calc(var(--spacing) * 2.5);
-  }
-  .mt-0\.5 {
-    margin-top: calc(var(--spacing) * 0.5);
-  }
-  .mt-1\.5 {
-    margin-top: calc(var(--spacing) * 1.5);
-  }
-  .mt-2 {
-    margin-top: calc(var(--spacing) * 2);
-  }
-  .mt-4 {
-    margin-top: calc(var(--spacing) * 4);
-  }
-  .mt-5 {
-    margin-top: calc(var(--spacing) * 5);
-  }
-  .mb-2 {
-    margin-bottom: calc(var(--spacing) * 2);
-  }
-  .mb-3 {
-    margin-bottom: calc(var(--spacing) * 3);
-  }
-  .ml-auto {
-    margin-left: auto;
-  }
-  .block {
-    display: block;
-  }
-  .flex {
-    display: flex;
-  }
-  .grid {
-    display: grid;
-  }
-  .inline-flex {
-    display: inline-flex;
-  }
-  .size-1\.5 {
-    width: calc(var(--spacing) * 1.5);
-    height: calc(var(--spacing) * 1.5);
-  }
-  .size-2 {
-    width: calc(var(--spacing) * 2);
-    height: calc(var(--spacing) * 2);
-  }
-  .size-3\.5 {
-    width: calc(var(--spacing) * 3.5);
-    height: calc(var(--spacing) * 3.5);
-  }
-  .size-5 {
-    width: calc(var(--spacing) * 5);
-    height: calc(var(--spacing) * 5);
-  }
-  .size-6 {
-    width: calc(var(--spacing) * 6);
-    height: calc(var(--spacing) * 6);
-  }
-  .size-10 {
-    width: calc(var(--spacing) * 10);
-    height: calc(var(--spacing) * 10);
-  }
-  .size-12 {
-    width: calc(var(--spacing) * 12);
-    height: calc(var(--spacing) * 12);
-  }
-  .h-9 {
-    height: calc(var(--spacing) * 9);
-  }
-  .h-\[96px\] {
-    height: 96px;
-  }
-  .h-\[250px\] {
-    height: 250px;
-  }
-  .h-\[300px\] {
-    height: 300px;
-  }
-  .h-\[350px\] {
-    height: 350px;
-  }
-  .h-full {
-    height: 100%;
-  }
-  .min-h-\[100svh\] {
-    min-height: 100svh;
-  }
-  .w-9 {
-    width: calc(var(--spacing) * 9);
-  }
-  .w-12 {
-    width: calc(var(--spacing) * 12);
-  }
-  .w-\[300px\] {
-    width: 300px;
-  }
-  .w-\[350px\] {
-    width: 350px;
-  }
-  .w-full {
-    width: 100%;
-  }
-  .max-w-md {
-    max-width: var(--container-md);
-  }
-  .max-w-xs {
-    max-width: var(--container-xs);
-  }
-  .flex-1 {
-    flex: 1;
-  }
-  .shrink-0 {
-    flex-shrink: 0;
-  }
-  .-translate-x-1\/2 {
-    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .transform-gpu {
-    transform: translateZ(0) var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
-  }
-  .animate-ping {
-    animation: var(--animate-ping);
-  }
-  .animate-pulse {
-    animation: var(--animate-pulse);
-  }
-  .grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .flex-col {
-    flex-direction: column;
-  }
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
-  .items-center {
-    align-items: center;
-  }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .justify-center {
-    justify-content: center;
-  }
-  .gap-1 {
-    gap: var(--spacing);
-  }
-  .gap-1\.5 {
-    gap: calc(var(--spacing) * 1.5);
-  }
-  .gap-2 {
-    gap: calc(var(--spacing) * 2);
-  }
-  .gap-3 {
-    gap: calc(var(--spacing) * 3);
-  }
-  .gap-5 {
-    gap: calc(var(--spacing) * 5);
-  }
-  .gap-x-4 {
-    column-gap: calc(var(--spacing) * 4);
-  }
-  .gap-y-1\.5 {
-    row-gap: calc(var(--spacing) * 1.5);
-  }
-  .overflow-hidden {
-    overflow: hidden;
-  }
-  .overflow-x-hidden {
-    overflow-x: hidden;
-  }
-  .rounded-2xl {
-    border-radius: var(--radius-2xl);
-  }
-  .rounded-3xl {
-    border-radius: var(--radius-3xl);
-  }
-  .rounded-full {
-    border-radius: calc(infinity * 1px);
-  }
-  .rounded-lg {
-    border-radius: var(--radius-lg);
-  }
-  .rounded-xl {
-    border-radius: var(--radius-xl);
-  }
-  .border {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-  }
-  .border-purple-500\/10 {
-    border-color: color-mix(in srgb, oklch(62.7% 0.265 303.9) 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-purple-500) 10%, transparent);
+    function medida(v, porDefecto) {
+      return typeof v === 'number' && v > 0 && v < 10000 ? v : porDefecto;
     }
-  }
-  .border-purple-500\/20 {
-    border-color: color-mix(in srgb, oklch(62.7% 0.265 303.9) 20%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-purple-500) 20%, transparent);
+    function own(obj, k) {
+      return !!obj && typeof obj === 'object' && Object.prototype.hasOwnProperty.call(obj, k);
     }
-  }
-  .border-yellow-500 {
-    border-color: var(--color-yellow-500);
-  }
-  .border-yellow-500\/40 {
-    border-color: color-mix(in srgb, oklch(79.5% 0.184 86.047) 40%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--color-yellow-500) 40%, transparent);
+    // Un anuncio sin imagen o con tipo desconocido se descarta; un video sin
+    // archivo de video se muestra como imagen.
+    function limpiarAnuncio(a) {
+      if (!a || typeof a !== 'object' || !texto(a.imagen)) return null;
+      var tipo = a.tipo === 'arte' || a.tipo === 'video' ? a.tipo : (a.tipo === 'imagen' ? 'imagen' : null);
+      if (!tipo) return null;
+      if (tipo === 'video' && !texto(a.video)) tipo = 'imagen';
+      return {
+        tipo: tipo,
+        imagen: a.imagen,
+        video: tipo === 'video' ? a.video : null,
+        ancho: medida(a.ancho, 780),
+        alto: medida(a.alto, 660),
+        titulo: texto(a.titulo) || '',
+        subtitulo: texto(a.subtitulo) || ''
+      };
     }
-  }
-  .bg-\[\#0A0116\] {
-    background-color: #0A0116;
-  }
-  .bg-\[\#16002c\] {
-    background-color: #16002c;
-  }
-  .bg-\[\#130623\] {
-    background-color: #130623;
-  }
-  .bg-\[\#150729\] {
-    background-color: #150729;
-  }
-  .bg-black\/40 {
-    background-color: color-mix(in srgb, #000 40%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-black) 40%, transparent);
+    function limpiarAnuncios(lista) {
+      var out = {}, hay = false;
+      if (!lista || typeof lista !== 'object') return null;
+      for (var k in lista) {
+        if (!own(lista, k) || !CLAVE_VALIDA.test(k)) continue;
+        var a = limpiarAnuncio(lista[k]);
+        if (a) { out[k] = a; hay = true; }
+      }
+      return hay ? out : null;
     }
-  }
-  .bg-fuchsia-500\/10 {
-    background-color: color-mix(in srgb, oklch(66.7% 0.295 322.15) 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-fuchsia-500) 10%, transparent);
+    function limpiarPasos(lista) {
+      if (!Array.isArray(lista) || !lista.length) return RESPALDO.pasos;
+      var out = [];
+      for (var i = 0; i < lista.length && i < 6; i++) {
+        var p = lista[i] || {};
+        var r = RESPALDO.pasos[i] || { titulo: '', texto: '' };
+        out.push({ titulo: texto(p.titulo) || r.titulo, texto: texto(p.texto) || r.texto });
+      }
+      return out;
     }
-  }
-  .bg-green-500 {
-    background-color: var(--color-green-500);
-  }
-  .bg-purple-500\/10 {
-    background-color: color-mix(in srgb, oklch(62.7% 0.265 303.9) 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-purple-500) 10%, transparent);
-    }
-  }
-  .bg-purple-950\/20 {
-    background-color: color-mix(in srgb, oklch(29.1% 0.149 302.717) 20%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-purple-950) 20%, transparent);
-    }
-  }
-  .bg-yellow-400 {
-    background-color: var(--color-yellow-400);
-  }
-  .bg-yellow-500\/10 {
-    background-color: color-mix(in srgb, oklch(79.5% 0.184 86.047) 10%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-yellow-500) 10%, transparent);
-    }
-  }
-  .bg-gradient-to-r {
-    --tw-gradient-position: to right in oklab;
-    background-image: linear-gradient(var(--tw-gradient-stops));
-  }
-  .bg-\[radial-gradient\(circle_at_center\,rgba\(147\,51\,234\,0\.1\)_0\%\,transparent_70\%\)\] {
-    background-image: radial-gradient(circle at center,rgba(147,51,234,0.1) 0%,transparent 70%);
-  }
-  .bg-\[radial-gradient\(circle_at_center\,rgba\(217\,70\,239\,0\.15\)_0\%\,transparent_70\%\)\] {
-    background-image: radial-gradient(circle at center,rgba(217,70,239,0.15) 0%,transparent 70%);
-  }
-  .bg-\[radial-gradient\(circle_at_center\,rgba\(245\,158\,11\,0\.05\)_0\%\,transparent_70\%\)\] {
-    background-image: radial-gradient(circle at center,rgba(245,158,11,0.05) 0%,transparent 70%);
-  }
-  .from-amber-400 {
-    --tw-gradient-from: var(--color-amber-400);
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .from-purple-400 {
-    --tw-gradient-from: var(--color-purple-400);
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .from-transparent {
-    --tw-gradient-from: transparent;
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .via-white\/20 {
-    --tw-gradient-via: color-mix(in srgb, #fff 20%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-gradient-via: color-mix(in oklab, var(--color-white) 20%, transparent);
-    }
-    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-via-stops);
-  }
-  .via-yellow-200 {
-    --tw-gradient-via: var(--color-yellow-200);
-    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-via-stops);
-  }
-  .to-amber-500 {
-    --tw-gradient-to: var(--color-amber-500);
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .to-fuchsia-500 {
-    --tw-gradient-to: var(--color-fuchsia-500);
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .to-transparent {
-    --tw-gradient-to: transparent;
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .bg-clip-text {
-    background-clip: text;
-  }
-  .fill-current {
-    fill: currentcolor;
-  }
-  .fill-yellow-400 {
-    fill: var(--color-yellow-400);
-  }
-  .object-cover {
-    object-fit: cover;
-  }
-  .p-1\.5 {
-    padding: calc(var(--spacing) * 1.5);
-  }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
-  }
-  .p-2\.5 {
-    padding: calc(var(--spacing) * 2.5);
-  }
-  .p-3 {
-    padding: calc(var(--spacing) * 3);
-  }
-  .px-0\.5 {
-    padding-inline: calc(var(--spacing) * 0.5);
-  }
-  .px-2\.5 {
-    padding-inline: calc(var(--spacing) * 2.5);
-  }
-  .px-3 {
-    padding-inline: calc(var(--spacing) * 3);
-  }
-  .px-4 {
-    padding-inline: calc(var(--spacing) * 4);
-  }
-  .px-6 {
-    padding-inline: calc(var(--spacing) * 6);
-  }
-  .py-0\.5 {
-    padding-block: calc(var(--spacing) * 0.5);
-  }
-  .py-1 {
-    padding-block: var(--spacing);
-  }
-  .py-1\.5 {
-    padding-block: calc(var(--spacing) * 1.5);
-  }
-  .py-4 {
-    padding-block: calc(var(--spacing) * 4);
-  }
-  .py-5 {
-    padding-block: calc(var(--spacing) * 5);
-  }
-  .py-8 {
-    padding-block: calc(var(--spacing) * 8);
-  }
-  .pt-4 {
-    padding-top: calc(var(--spacing) * 4);
-  }
-  .pb-6 {
-    padding-bottom: calc(var(--spacing) * 6);
-  }
-  .text-center {
-    text-align: center;
-  }
-  .font-mono {
-    font-family: var(--font-mono);
-  }
-  .font-sans {
-    font-family: var(--font-sans);
-  }
-  .text-2xl {
-    font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
-  }
-  .text-6xl {
-    font-size: var(--text-6xl);
-    line-height: var(--tw-leading, var(--text-6xl--line-height));
-  }
-  .text-lg {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
-  }
-  .text-sm {
-    font-size: var(--text-sm);
-    line-height: var(--tw-leading, var(--text-sm--line-height));
-  }
-  .text-xs {
-    font-size: var(--text-xs);
-    line-height: var(--tw-leading, var(--text-xs--line-height));
-  }
-  .text-\[8px\] {
-    font-size: 8px;
-  }
-  .text-\[9px\] {
-    font-size: 9px;
-  }
-  .text-\[10px\] {
-    font-size: 10px;
-  }
-  .text-\[11px\] {
-    font-size: 11px;
-  }
-  .leading-none {
-    --tw-leading: 1;
-    line-height: 1;
-  }
-  .leading-relaxed {
-    --tw-leading: var(--leading-relaxed);
-    line-height: var(--leading-relaxed);
-  }
-  .font-black {
-    --tw-font-weight: var(--font-weight-black);
-    font-weight: var(--font-weight-black);
-  }
-  .font-bold {
-    --tw-font-weight: var(--font-weight-bold);
-    font-weight: var(--font-weight-bold);
-  }
-  .font-extrabold {
-    --tw-font-weight: var(--font-weight-extrabold);
-    font-weight: var(--font-weight-extrabold);
-  }
-  .tracking-\[0\.2em\] {
-    --tw-tracking: 0.2em;
-    letter-spacing: 0.2em;
-  }
-  .tracking-\[0\.18em\] {
-    --tw-tracking: 0.18em;
-    letter-spacing: 0.18em;
-  }
-  .tracking-\[0\.25em\] {
-    --tw-tracking: 0.25em;
-    letter-spacing: 0.25em;
-  }
-  .tracking-tight {
-    --tw-tracking: var(--tracking-tight);
-    letter-spacing: var(--tracking-tight);
-  }
-  .tracking-tighter {
-    --tw-tracking: var(--tracking-tighter);
-    letter-spacing: var(--tracking-tighter);
-  }
-  .tracking-wide {
-    --tw-tracking: var(--tracking-wide);
-    letter-spacing: var(--tracking-wide);
-  }
-  .tracking-wider {
-    --tw-tracking: var(--tracking-wider);
-    letter-spacing: var(--tracking-wider);
-  }
-  .text-balance {
-    text-wrap: balance;
-  }
-  .text-amber-400 {
-    color: var(--color-amber-400);
-  }
-  .text-fuchsia-400 {
-    color: var(--color-fuchsia-400);
-  }
-  .text-green-400 {
-    color: var(--color-green-400);
-  }
-  .text-purple-200\/80 {
-    color: color-mix(in srgb, oklch(90.2% 0.063 306.703) 80%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-purple-200) 80%, transparent);
-    }
-  }
-  .text-purple-300 {
-    color: var(--color-purple-300);
-  }
-  .text-purple-300\/40 {
-    color: color-mix(in srgb, oklch(82.7% 0.119 306.383) 40%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-purple-300) 40%, transparent);
-    }
-  }
-  .text-purple-300\/60 {
-    color: color-mix(in srgb, oklch(82.7% 0.119 306.383) 60%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-purple-300) 60%, transparent);
-    }
-  }
-  .text-purple-400 {
-    color: var(--color-purple-400);
-  }
-  .text-purple-400\/70 {
-    color: color-mix(in srgb, oklch(71.4% 0.203 305.504) 70%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-purple-400) 70%, transparent);
-    }
-  }
-  .text-transparent {
-    color: transparent;
-  }
-  .text-white {
-    color: var(--color-white);
-  }
-  .text-yellow-400 {
-    color: var(--color-yellow-400);
-  }
-  .text-yellow-500 {
-    color: var(--color-yellow-500);
-  }
-  .text-yellow-500\/60 {
-    color: color-mix(in srgb, oklch(79.5% 0.184 86.047) 60%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-yellow-500) 60%, transparent);
-    }
-  }
-  .uppercase {
-    text-transform: uppercase;
-  }
-  .antialiased {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  .opacity-15 {
-    opacity: 15%;
-  }
-  .opacity-25 {
-    opacity: 25%;
-  }
-  .opacity-75 {
-    opacity: 75%;
-  }
-  .shadow-\[0_0_6px_\#22c55e\] {
-    --tw-shadow: 0 0 6px var(--tw-shadow-color, #22c55e);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .shadow-\[0_0_12px_rgba\(234\,179\,8\,0\.15\)\] {
-    --tw-shadow: 0 0 12px var(--tw-shadow-color, rgba(234,179,8,0.15));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .shadow-\[0_0_12px_rgba\(234\,179\,8\,0\.35\)\] {
-    --tw-shadow: 0 0 12px var(--tw-shadow-color, rgba(234,179,8,0.35));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .shadow-\[0_0_15px_rgba\(34\,197\,94\,0\.3\)\] {
-    --tw-shadow: 0 0 15px var(--tw-shadow-color, rgba(34,197,94,0.3));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .shadow-\[0_0_25px_rgba\(168\,85\,247\,0\.12\)\] {
-    --tw-shadow: 0 0 25px var(--tw-shadow-color, rgba(168,85,247,0.12));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .ring-1 {
-    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .ring-purple-500\/50 {
-    --tw-ring-color: color-mix(in srgb, oklch(62.7% 0.265 303.9) 50%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-ring-color: color-mix(in oklab, var(--color-purple-500) 50%, transparent);
-    }
-  }
-  .drop-shadow-\[0_0_8px_\#a855f7\] {
-    --tw-drop-shadow-size: drop-shadow(0 0 8px var(--tw-drop-shadow-color, #a855f7));
-    --tw-drop-shadow: var(--tw-drop-shadow-size);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-  }
-  .drop-shadow-\[0_0_20px_rgba\(234\,179\,8\,0\.5\)\] {
-    --tw-drop-shadow-size: drop-shadow(0 0 20px var(--tw-drop-shadow-color, rgba(234,179,8,0.5)));
-    --tw-drop-shadow: var(--tw-drop-shadow-size);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-  }
-  .drop-shadow-\[0_1px_1px_rgba\(0\,0\,0\,0\.3\)\] {
-    --tw-drop-shadow-size: drop-shadow(0 1px 1px var(--tw-drop-shadow-color, rgba(0,0,0,0.3)));
-    --tw-drop-shadow: var(--tw-drop-shadow-size);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-  }
-  .drop-shadow-\[0_1px_2px_rgba\(0\,0\,0\,0\.4\)\] {
-    --tw-drop-shadow-size: drop-shadow(0 1px 2px var(--tw-drop-shadow-color, rgba(0,0,0,0.4)));
-    --tw-drop-shadow: var(--tw-drop-shadow-size);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-  }
-  .drop-shadow-\[0_2px_4px_rgba\(0\,0\,0\,0\.6\)\] {
-    --tw-drop-shadow-size: drop-shadow(0 2px 4px var(--tw-drop-shadow-color, rgba(0,0,0,0.6)));
-    --tw-drop-shadow: var(--tw-drop-shadow-size);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-  }
-  .drop-shadow-\[0_2px_6px_rgba\(234\,179\,8\,0\.25\)\] {
-    --tw-drop-shadow-size: drop-shadow(0 2px 6px var(--tw-drop-shadow-color, rgba(234,179,8,0.25)));
-    --tw-drop-shadow: var(--tw-drop-shadow-size);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
-  }
-  .transition-transform {
-    transition-property: transform, translate, scale, rotate;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-  }
-  .duration-200 {
-    --tw-duration: 200ms;
-    transition-duration: 200ms;
-  }
-  .duration-500 {
-    --tw-duration: 500ms;
-    transition-duration: 500ms;
-  }
-  .ease-out {
-    --tw-ease: var(--ease-out);
-    transition-timing-function: var(--ease-out);
-  }
-  .will-change-transform {
-    will-change: transform;
-  }
-  .selection\:bg-purple-500\/30 ::selection {
-    background-color: color-mix(in srgb, oklch(62.7% 0.265 303.9) 30%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-purple-500) 30%, transparent);
-    }
-  }
-  .selection\:bg-purple-500\/30::selection {
-    background-color: color-mix(in srgb, oklch(62.7% 0.265 303.9) 30%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-purple-500) 30%, transparent);
-    }
-  }
-  @media (hover: hover) {
-    .hover\:scale-\[1\.01\]:hover {
-      scale: 1.01;
-    }
-  }
-  .active\:scale-95:active {
-    --tw-scale-x: 95%;
-    --tw-scale-y: 95%;
-    --tw-scale-z: 95%;
-    scale: var(--tw-scale-x) var(--tw-scale-y);
-  }
-}
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-@property --tw-border-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
-}
-@property --tw-gradient-position {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-gradient-from {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-gradient-via {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-gradient-to {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-gradient-stops {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-gradient-via-stops {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-gradient-from-position {
-  syntax: "<length-percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-@property --tw-gradient-via-position {
-  syntax: "<length-percentage>";
-  inherits: false;
-  initial-value: 50%;
-}
-@property --tw-gradient-to-position {
-  syntax: "<length-percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
-@property --tw-leading {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-font-weight {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-tracking {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-shadow-alpha {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
-@property --tw-inset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-shadow-alpha {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
-@property --tw-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-inset-ring-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-inset-ring-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-ring-inset {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ring-offset-width {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@property --tw-ring-offset-color {
-  syntax: "*";
-  inherits: false;
-  initial-value: #fff;
-}
-@property --tw-ring-offset-shadow {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0 0 #0000;
-}
-@property --tw-blur {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-brightness {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-contrast {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-grayscale {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-hue-rotate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-invert {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-opacity {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-saturate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-sepia {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-drop-shadow {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-drop-shadow-color {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-drop-shadow-alpha {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
-@property --tw-drop-shadow-size {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-duration {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ease {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-scale-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-@property --tw-scale-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-@property --tw-scale-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-@keyframes pulse {
-  50% {
-    opacity: 0.5;
-  }
-}
-@layer properties {
-  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
-    *, ::before, ::after, ::backdrop {
-      --tw-translate-x: 0;
-      --tw-translate-y: 0;
-      --tw-translate-z: 0;
-      --tw-border-style: solid;
-      --tw-gradient-position: initial;
-      --tw-gradient-from: #0000;
-      --tw-gradient-via: #0000;
-      --tw-gradient-to: #0000;
-      --tw-gradient-stops: initial;
-      --tw-gradient-via-stops: initial;
-      --tw-gradient-from-position: 0%;
-      --tw-gradient-via-position: 50%;
-      --tw-gradient-to-position: 100%;
-      --tw-leading: initial;
-      --tw-font-weight: initial;
-      --tw-tracking: initial;
-      --tw-shadow: 0 0 #0000;
-      --tw-shadow-color: initial;
-      --tw-shadow-alpha: 100%;
-      --tw-inset-shadow: 0 0 #0000;
-      --tw-inset-shadow-color: initial;
-      --tw-inset-shadow-alpha: 100%;
-      --tw-ring-color: initial;
-      --tw-ring-shadow: 0 0 #0000;
-      --tw-inset-ring-color: initial;
-      --tw-inset-ring-shadow: 0 0 #0000;
-      --tw-ring-inset: initial;
-      --tw-ring-offset-width: 0px;
-      --tw-ring-offset-color: #fff;
-      --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-blur: initial;
-      --tw-brightness: initial;
-      --tw-contrast: initial;
-      --tw-grayscale: initial;
-      --tw-hue-rotate: initial;
-      --tw-invert: initial;
-      --tw-opacity: initial;
-      --tw-saturate: initial;
-      --tw-sepia: initial;
-      --tw-drop-shadow: initial;
-      --tw-drop-shadow-color: initial;
-      --tw-drop-shadow-alpha: 100%;
-      --tw-drop-shadow-size: initial;
-      --tw-duration: initial;
-      --tw-ease: initial;
-      --tw-scale-x: 1;
-      --tw-scale-y: 1;
-      --tw-scale-z: 1;
-    }
-  }
-} 
-</style>
-  
-  <style>
-@keyframes customPulse {
-      0%, 100% { transform: scale(1) translateZ(0); box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
-      50% { transform: scale(1.02) translateZ(0); box-shadow: 0 0 25px rgba(34, 197, 94, 0.7); }
-    }
-    @keyframes sheenEffect {
-      0% { transform: translateX(-100%) skewX(-12deg); }
-      100% { transform: translateX(200%) skewX(-12deg); }
-    }
-    @keyframes softFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
-      50% { transform: translateY(-6px) rotate(0.5deg) translateZ(0); }
-    }
-    @keyframes gentleBounce {
-      0%, 100%, 20%, 50%, 80% { transform: translateY(0) translateZ(0); }
-      40% { transform: translateY(-6px) translateZ(0); }
-      60% { transform: translateY(-3px) translateZ(0); }
-    }
-    @keyframes neonFlicker {
-      0%, 100% { opacity: 0.95; }
-      50% { opacity: 0.85; }
+    function limpiarBeneficios(lista) {
+      if (!Array.isArray(lista)) return RESPALDO.beneficios;
+      var out = [];
+      for (var i = 0; i < 3; i++) out.push(texto(lista[i]) || RESPALDO.beneficios[i]);
+      return out;
     }
 
-    .animate-pulse-glow { animation: customPulse 2s infinite ease-in-out; }
-    .animate-sheen-line { animation: sheenEffect 3s infinite ease-in-out; }
-    .animate-float { animation: softFloat 5s infinite ease-in-out; }
-    .animate-periodic-bounce { animation: gentleBounce 4.5s infinite ease-in-out; }
-    .animate-neon-flicker { animation: neonFlicker 4s infinite ease-in-out; }
+    var c, clave;
+    try {
+      var C = window.CONTENIDO && typeof window.CONTENIDO === 'object' ? window.CONTENIDO : {};
+      c = {};
+      for (var i = 0; i < TEXTOS.length; i++) c[TEXTOS[i]] = texto(C[TEXTOS[i]]) || RESPALDO[TEXTOS[i]];
+      c.pasos = limpiarPasos(C.pasos);
+      c.beneficios = limpiarBeneficios(C.beneficios);
+      c.anuncios = limpiarAnuncios(C.anuncios) || limpiarAnuncios(RESPALDO.anuncios);
+
+      var v = '';
+      try { v = (new URLSearchParams(window.location.search).get('v') || '').trim().toLowerCase(); } catch (e) {}
+      if (CLAVE_VALIDA.test(v) && own(c.anuncios, v)) {
+        clave = v;
+      } else if (own(c.anuncios, texto(C.anuncioPorDefecto) || '')) {
+        clave = C.anuncioPorDefecto;
+      } else if (own(c.anuncios, RESPALDO.anuncioPorDefecto)) {
+        clave = RESPALDO.anuncioPorDefecto;
+      } else {
+        clave = Object.keys(c.anuncios)[0];
+      }
+    } catch (e) {
+      c = null;
+    }
+    if (!c) {
+      c = RESPALDO;
+      c.anuncios = limpiarAnuncios(RESPALDO.anuncios);
+      clave = RESPALDO.anuncioPorDefecto;
+    }
+
+    window.RSL_CONTENIDO = c;
+    window.RSL_ANUNCIO = c.anuncios[clave];
+
+    var pre = document.createElement('link');
+    pre.rel = 'preload';
+    pre.as = 'image';
+    pre.href = window.RSL_ANUNCIO.imagen;
+    pre.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(pre);
+  })();
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Lilita One';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(fuentes/lilita-one-latin.woff2) format('woff2');
+    }
+    :root {
+      --fondo: #140826;
+      --tarjeta: #21103A;
+      --borde: #4A2A73;
+      --texto: #FFF6E5;
+      --texto-2: #CBB8E6;
+      --dorado: #F7C548;
+      --violeta: #D58BFF;
+      --verde: #25D366;
+      --verde-tinta: #052E16;
+      --titulo: 'Lilita One', 'Arial Black', Impact, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    /* El JS del CTA muestra/oculta con el atributo hidden: tiene que ganarle
+       a cualquier display de abajo. */
+    [hidden] { display: none !important; }
+    html { -webkit-text-size-adjust: 100%; background: var(--fondo); }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: Archivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, p, ol, ul { margin: 0; padding: 0; }
+    svg { flex-shrink: 0; }
+    .pagina { max-width: 480px; margin: 0 auto; padding-bottom: 28px; overflow: hidden; }
+
+    /* 1. Imagen / video del anuncio */
+    .hero { position: relative; width: 100%; aspect-ratio: 780 / 660; background: var(--fondo); overflow: hidden; }
+    .hero img, .hero video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center top; display: block;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(20, 8, 38, 0) 45%, rgba(20, 8, 38, .55) 68%, rgba(20, 8, 38, .92) 88%, var(--fondo) 100%);
+    }
+    .hero--arte::after { background: linear-gradient(to bottom, rgba(20, 8, 38, 0) 80%, var(--fondo) 100%); }
+    .pildora {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(20, 8, 38, .72); border: 1px solid rgba(255, 246, 229, .35);
+      color: var(--texto); font-size: 13px; font-weight: 800; letter-spacing: .02em;
+    }
+
+    /* 2. Logo montado sobre el borde de la imagen */
+    .logo {
+      position: relative; z-index: 2; display: block;
+      width: 230px; max-width: 60%; height: auto; aspect-ratio: 460 / 371;
+      margin: -92px auto 0;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .55));
+    }
+
+    /* En 'arte' la imagen trae su propio título abajo: el logo solo apoya en
+       el borde para no taparlo. */
+    .hero--arte + .logo { margin-top: -28px; }
+
+    .contenido { padding: 0 16px; }
+
+    /* 3. Título + subtítulo */
+    .titulo {
+      margin-top: 6px; text-align: center;
+      font-family: var(--titulo); font-weight: 400;
+      font-size: clamp(30px, 9vw, 40px); line-height: 1.04; letter-spacing: .01em;
+      color: var(--dorado);
+      background: linear-gradient(180deg, #FFF1B8 0%, #F7C548 55%, #C9851A 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .45));
+      overflow-wrap: break-word;
+    }
+    .subtitulo {
+      margin-top: 6px; text-align: center;
+      color: var(--violeta); font-size: 18px; font-weight: 700;
+    }
+
+    .tarjeta {
+      background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 20px;
+    }
+
+    /* 4. Bono */
+    .bono {
+      margin-top: 16px; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .bono-num {
+      font-family: var(--titulo); font-weight: 400;
+      font-size: clamp(54px, 17vw, 68px); line-height: 1;
+      color: var(--dorado);
+      background: linear-gradient(180deg, #FFF1B8 0%, #F7C548 55%, #C9851A 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+    }
+    .bono-txt { min-width: 0; }
+    .bono-txt strong { display: block; font-size: 18px; font-weight: 800; line-height: 1.15; }
+    .bono-txt span { display: block; margin-top: 2px; color: var(--texto-2); font-size: 15px; }
+
+    /* 5. Botón principal + estado */
+    .accion { margin-top: 16px; text-align: center; }
+    .cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; min-height: 62px; padding: 12px 18px;
+      border: 0; border-radius: 16px;
+      background: var(--verde); color: var(--verde-tinta);
+      font: inherit; font-size: 20px; font-weight: 800; line-height: 1.1;
+      text-decoration: none; cursor: pointer;
+      box-shadow: 0 10px 26px rgba(37, 211, 102, .32), inset 0 -3px 0 rgba(0, 0, 0, .14);
+      animation: latido 2.6s ease-in-out infinite;
+      transition: opacity .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cta svg { width: 26px; height: 26px; fill: currentColor; }
+    @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+    /* Clases que usa el JS del CTA (showWaiting / showUnavailable /
+       clearStatus): botón atenuado y sin clicks mientras espera. */
+    .opacity-50 { opacity: .5; }
+    .pointer-events-none { pointer-events: none; }
+    .cta.opacity-50 { animation: none; }
+
+    .atencion {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: 10px; color: var(--texto-2); font-size: 14px;
+    }
+    .atencion svg { width: 16px; height: 16px; }
+    .estado { margin-top: 10px; color: var(--texto); font-size: 14px; font-weight: 700; }
+    .reintentar {
+      display: inline-block; margin-top: 10px; padding: 10px 20px;
+      border: 1px solid var(--borde); border-radius: 12px;
+      background: var(--tarjeta); color: var(--texto);
+      font: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+    }
+
+    /* 6. Cómo funciona */
+    .pasos { margin-top: 22px; padding: 18px 16px; }
+    .pasos h2 {
+      font-family: var(--titulo); font-weight: 400; font-size: 24px; line-height: 1.1;
+      color: var(--dorado); text-align: center;
+    }
+    .pasos ol { list-style: none; margin-top: 14px; display: grid; gap: 14px; }
+    .pasos li { display: flex; align-items: flex-start; gap: 12px; }
+    .pasos .num {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(180deg, #FFF1B8 0%, #F7C548 55%, #C9851A 100%);
+      color: #2A1200; font-family: var(--titulo); font-size: 20px; line-height: 1;
+    }
+    .pasos li div { min-width: 0; padding-top: 1px; }
+    .pasos strong { display: block; font-size: 16px; font-weight: 800; }
+    .pasos li p { margin-top: 1px; color: var(--texto-2); font-size: 14px; }
+
+    /* 7. Beneficios */
+    .beneficios { list-style: none; margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .beneficios li {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 12px 6px; text-align: center;
+      font-size: 13px; font-weight: 700; line-height: 1.2; overflow-wrap: break-word;
+    }
+    .beneficios svg { width: 26px; height: 26px; color: var(--dorado); }
+
+    /* 8. Botón secundario */
+    .cta2 {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; min-height: 56px; margin-top: 18px; padding: 12px 18px;
+      border: 2px solid var(--verde); border-radius: 16px;
+      background: transparent; color: var(--verde);
+      font: inherit; font-size: 18px; font-weight: 800; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cta2 svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* 9. Pie */
+    .pie { margin-top: 22px; text-align: center; }
+    .legal { font-size: 14px; font-weight: 800; }
+    .condiciones { margin-top: 6px; color: var(--texto-2); font-size: 12px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta { animation: none; }
+    }
   </style>
     <!-- Meta Pixel Code -->
 <script>
@@ -1230,238 +354,186 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 </head>
-<body class="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-[#0A0116] px-4 pb-6 pt-4 text-white font-sans antialiased selection:bg-purple-500/30">
+<body>
+  <main class="pagina">
 
-  <div class="pointer-events-none absolute -top-40 left-1/2 h-[350px] w-[350px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.15)_0%,transparent_70%)]"></div>
-  <div class="pointer-events-none absolute top-1/3 left-1/2 h-[300px] w-[350px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(147,51,234,0.1)_0%,transparent_70%)]"></div>
-  <div class="pointer-events-none absolute bottom-10 left-1/2 h-[250px] w-[300px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.05)_0%,transparent_70%)]"></div>
+    <!-- 1. Imagen o video del anuncio (lo arma el script de abajo según ?v=) -->
+    <div id="hero" class="hero">
+      <span class="pildora">+18</span>
+    </div>
 
-  <div class="pointer-events-none transform-gpu absolute top-24 left-4 size-10 opacity-25 animate-float">
-    <svg viewBox="0 0 24 24" fill="none" class="text-amber-400">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="rgba(251, 191, 36, 0.15)" />
-      <path d="M12 6v12M9 9h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-    </svg>
-  </div>
-  <div class="pointer-events-none transform-gpu absolute bottom-1/3 right-4 size-12 opacity-15 animate-float" style="animation-delay: 1.5s;">
-    <svg viewBox="0 0 24 24" fill="none" class="text-yellow-500">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="rgba(245, 158, 11, 0.2)" />
-      <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1" />
-    </svg>
-  </div>
+    <!-- 2. Logo -->
+    <img class="logo" src="creativos/logo-red-sol-y-luz.webp" alt="Red Sol y Luz" width="460" height="371" decoding="async" />
 
-  <div class="relative mx-auto flex w-full max-w-md flex-1 flex-col">
+    <div class="contenido">
+      <!-- 3. Título (no se muestra en los anuncios tipo 'arte') + subtítulo -->
+      <h1 id="c-titulo" class="titulo">Recibí tu gran bono</h1>
+      <p id="c-subtitulo" class="subtitulo">Arrancá hoy</p>
 
-    <header class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <img
-          src="logo.webp"
-          alt="Logo"
-          width="40"
-          height="40"
-          loading="eager"
-          onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23a855f7\'><circle cx=\'12\' cy=\'12\' r=\'10\'/></svg>'"
-          class="h-9 w-9 rounded-xl ring-1 ring-purple-500/50 drop-shadow-[0_0_8px_#a855f7] object-cover"
-        />
-        <span class="text-sm font-black tracking-tight text-white">
-          <span class="bg-gradient-to-r from-purple-400 to-fuchsia-500 bg-clip-text text-transparent"></span>
+      <!-- 4. Bono -->
+      <div class="tarjeta bono">
+        <span id="c-bono" class="bono-num">+40%</span>
+        <span class="bono-txt">
+          <strong id="c-bono-texto">Bono de bienvenida</strong>
+          <span id="c-bono-detalle">en tu primera carga</span>
         </span>
       </div>
-      <span class="flex items-center gap-1 rounded-full border border-yellow-500/40 bg-yellow-500/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-yellow-400 shadow-[0_0_12px_rgba(234,179,8,0.15)]">
-        <span class="size-1.5 rounded-full bg-yellow-400 animate-ping"></span>
-        B̶ENEFICIO
-      </span>
-    </header>
 
-    <div class="flex flex-1 flex-col justify-center gap-5 py-5">
-      <div class="transform-gpu relative flex flex-col items-center rounded-3xl border border-purple-500/20 bg-[#150729] px-4 py-8 text-center shadow-[0_0_25px_rgba(168,85,247,0.12)] animate-float">
-        
-        <div class="absolute -top-6 left-1/2 -translate-x-1/2 rounded-full border border-yellow-500 bg-[#16002c] p-2 shadow-[0_0_12px_rgba(234,179,8,0.35)]">
-          <svg class="size-6 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-          </svg>
-        </div>
-
-        <p class="mt-2 text-[11px] font-extrabold uppercase tracking-[0.25em] text-purple-400">
-          ⚡ PROMOCIÓN EXCLUSIVA ⚡
-        </p>
-
-        <h1 class="mt-4 text-balance text-center uppercase tracking-tight leading-none text-white">
-          <span class="block text-2xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
-            INICIA CON UN
-          </span>
-          <span class="block text-6xl my-2.5 font-extrabold bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(234,179,8,0.5)] tracking-tighter">
-            +60%
-          </span>
-          <span class="block text-2xl font-black text-yellow-400 tracking-wide drop-shadow-[0_2px_6px_rgba(234,179,8,0.25)]">
-            DE BIENVENIDA
-          </span>
-        </h1>
-
-        <div class="mt-5 flex gap-2 rounded-lg bg-black/40 px-3 py-1.5 border border-purple-500/10">
-          <span class="text-xs font-mono text-fuchsia-400">🔥 ACREDITACIONES EXPRES</span>
-          <span class="text-xs text-yellow-400">|</span>
-          <span class="text-xs font-mono text-fuchsia-400">🔥 INGRESO AL INSTANTE</span>
-        </div>
-
-        <p class="mt-4 max-w-xs text-xs leading-relaxed text-purple-200/80">
-          Acceso inmediato por WhatsApp.
-        </p>
-      </div>
-
-      <div class="flex flex-col items-center gap-2">
-        <a
-          id="btn-whatsapp"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="transform-gpu relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-green-500 px-6 py-4 text-lg font-black uppercase tracking-wider text-white transition-transform duration-200 hover:scale-[1.01] active:scale-95 shadow-[0_0_15px_rgba(34,197,94,0.3)] animate-pulse-glow animate-periodic-bounce"
-        >
-          <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-sheen-line"></span>
-          <svg class="relative size-6 shrink-0 fill-current drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
-          </svg>
-          <span class="relative drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
-            Quiero mi usuario
-          </span>
+      <!-- 5. Botón principal. Los ids btn-whatsapp / -online / -status / -retry
+           los usa el bloque de integración de más abajo: no renombrar. -->
+      <div class="accion">
+        <a id="btn-whatsapp" class="cta" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+          <span id="c-boton">Quiero mi usuario</span>
         </a>
-        <p
-          id="btn-whatsapp-online"
-          class="text-[11px] font-bold uppercase tracking-wider text-green-400 animate-neon-flicker"
-        >
-          🟢 Activación inmediata en línea
+        <p id="btn-whatsapp-online" class="atencion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          <span id="c-atencion">Te atiende una persona real · las 24 hs</span>
         </p>
         <!-- Estado de la conexión con el número de WhatsApp activo: vacío
              y oculto salvo mientras se resuelve el número, o si no se pudo
              resolver ninguno. Ver el bloque de integración más abajo. -->
-        <p
-          id="btn-whatsapp-status"
-          hidden
-          class="text-center text-[11px] font-bold uppercase tracking-wider text-purple-200/90"
-        ></p>
-        <button
-          id="btn-whatsapp-retry"
-          type="button"
-          hidden
-          class="rounded-xl border border-purple-500/40 bg-purple-950/40 px-4 py-2 text-xs font-black uppercase tracking-wider text-purple-100 transition-transform duration-200 active:scale-95"
-        >
-          Reintentar
-        </button>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-3 gap-2 py-1 mb-3">
-      <div class="flex flex-col items-center rounded-xl border border-purple-500/10 bg-purple-950/20 p-2.5 text-center">
-        <div class="rounded-full bg-yellow-500/10 p-1.5 text-yellow-400">
-          <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-        </div>
-        <span class="mt-1.5 text-[10px] font-black uppercase text-yellow-400">Seguro</span>
-        <span class="text-[8px] text-purple-300/60 mt-0.5 leading-none">Datos protegidos</span>
+        <p id="btn-whatsapp-status" class="estado" hidden></p>
+        <button id="btn-whatsapp-retry" class="reintentar" type="button" hidden>Reintentar</button>
       </div>
 
-      <div class="flex flex-col items-center rounded-xl border border-purple-500/10 bg-purple-950/20 p-2.5 text-center">
-        <div class="rounded-full bg-fuchsia-500/10 p-1.5 text-fuchsia-400">
-          <svg class="size-5 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <span class="mt-1.5 text-[10px] font-black uppercase text-fuchsia-400">Rápido</span>
-        <span class="text-[8px] text-purple-300/60 mt-0.5 leading-none">Gestión Instantánea</span>
-      </div>
-
-      <div class="flex flex-col items-center rounded-xl border border-purple-500/10 bg-purple-950/20 p-2.5 text-center">
-        <div class="rounded-full bg-purple-500/10 p-1.5 text-purple-400">
-          <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
-        </div>
-        <span class="mt-1.5 text-[10px] font-black uppercase text-purple-400">Atención 24/7</span>
-        <span class="text-[8px] text-purple-300/60 mt-0.5 leading-none">Beneficios VIP</span>
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-3">
-      <section aria-label="Premios en vivo" class="rounded-2xl border border-purple-500/20 bg-[#130623] p-3">
-        <div class="mb-2 flex items-center gap-2 px-0.5">
-          <span class="relative flex size-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
-            <span class="relative inline-flex size-2 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e]"></span>
-          </span>
-          <h2 class="text-[10px] font-black uppercase tracking-[0.18em] text-purple-300">
-            Jugadores Recientes
-          </h2>
-          <span class="ml-auto text-[9px] font-black uppercase tracking-wider text-green-400 animate-pulse">
-            Live Feed
-          </span>
-        </div>
-
-        <div class="relative h-[96px] overflow-hidden">
-          <ul id="prizes-list" class="flex flex-col gap-1.5 transition-transform duration-500 ease-out will-change-transform transform-gpu">
-            </ul>
-        </div>
+      <!-- 6. Cómo funciona -->
+      <section class="tarjeta pasos" aria-labelledby="c-pasos-titulo">
+        <h2 id="c-pasos-titulo">Cómo funciona</h2>
+        <ol id="c-pasos">
+          <li><span class="num">1</span><div><strong>Tocá el botón</strong><p>Se abre WhatsApp con el mensaje listo.</p></div></li>
+          <li><span class="num">2</span><div><strong>Te creamos el usuario</strong><p>Una persona te atiende en el momento.</p></div></li>
+          <li><span class="num">3</span><div><strong>Cargás y recibís el +40%</strong><p>Billetera virtual o transferencia.</p></div></li>
+        </ol>
       </section>
 
-      <ul class="flex items-center justify-center gap-x-4 gap-y-1.5 flex-wrap text-purple-300/40">
-        <li class="flex items-center gap-1.5">
-          <svg class="size-3.5 text-purple-400/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
-          <span class="text-[10px] font-bold tracking-tight">Billeteras digitales</span>
+      <!-- 7. Beneficios -->
+      <ul class="beneficios">
+        <li class="tarjeta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span class="c-beneficio">Activos 24 hs</span>
         </li>
-        <li class="flex items-center gap-1.5">
-          <svg class="size-3.5 text-purple-400/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7 12 2"/></svg>
-          <span class="text-[10px] font-bold tracking-tight">Transf. Bancaria</span>
+        <li class="tarjeta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+          <span class="c-beneficio">Carga rápida</span>
         </li>
-        <li class="flex items-center gap-1.5">
-          <svg class="size-3.5 text-purple-400/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-          <span class="text-[10px] font-bold tracking-tight">Soporte 24/7</span>
+        <li class="tarjeta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/></svg>
+          <span class="c-beneficio">Retiros por WhatsApp</span>
         </li>
       </ul>
 
-      <p class="text-center text-[9px] font-bold uppercase tracking-[0.2em] text-yellow-500/60">
-        * Promoción disponible por tiempo limitado *
-      </p>
-    </div>
+      <!-- 8. Botón secundario: "aprieta" el principal (mismo flujo, misma
+           protección de doble click: nunca dos Leads). -->
+      <button id="btn-secundario" class="cta2" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+        <span id="c-boton-2">Quiero mi usuario</span>
+      </button>
 
-  </div>
+      <!-- 9. Pie -->
+      <footer class="pie">
+        <p id="c-legal" class="legal">Solo mayores de 18 · Jugá con responsabilidad</p>
+        <p id="c-condiciones" class="condiciones">Promoción por tiempo limitado. [CONDICIONES DEL BONO]</p>
+      </footer>
+    </div>
+  </main>
 
   <script>
-    const prizes = [
-      { name: 'Martín G.', tag: 'SI', amount: '$48.500', tone: 'green' },
-      { name: 'Sofía R.', tag: 'LLEVA', amount: '$112.000', tone: 'gold' },
-      { name: 'Nico A.', tag: 'SI', amount: '$27.300', tone: 'green' },
-      { name: 'Valentina P.', tag: 'SI', amount: '$85.400', tone: 'green' },
-      { name: 'Lucas M.', tag: 'LLEVA', amount: '$150.000', tone: 'gold' },
-      { name: 'Matias S.', tag: 'SI', amount: '$62.400', tone: 'green' },
-      { name: 'Camila B.', tag: 'LLEVA', amount: '$98.000', tone: 'gold' },
-      { name: 'Facundo T.', tag: 'SI', amount: '$31.500', tone: 'green' },
-      { name: 'Agustina M.', tag: 'LLEVA', amount: '$210.000', tone: 'gold' },
-      { name: 'Bautista D.', tag: 'SI', amount: '$43.900', tone: 'green' },
-      { name: 'Julieta F.', tag: 'SI', amount: '$74.000', tone: 'green' },
-      { name: 'Tomas L.', tag: 'LLEVA', amount: '$125.000', tone: 'gold' },
-      { name: 'Mateo C.', tag: 'SI', amount: '$19.800', tone: 'green' },
-      { name: 'Olivia G.', tag: 'LLEVA', amount: '$315.000', tone: 'gold' },
-      { name: 'Joaquín V.', tag: 'SI', amount: '$55.000', tone: 'green' },
-      { name: 'Delfina S.', tag: 'LLEVA', amount: '$89.500', tone: 'gold' },
-      { name: 'Felipe H.', tag: 'SI', amount: '$38.200', tone: 'green' },
-      { name: 'Emma R.', tag: 'SI', amount: '$105.000', tone: 'green' },
-      { name: 'Santiago K.', tag: 'LLEVA', amount: '$175.000', tone: 'gold' },
-      { name: 'Victoria Q.', tag: 'SI', amount: '$67.000', tone: 'green' }
-    ];
+  // Pinta el anuncio elegido y los textos (resueltos en el <head>). Todo con
+  // textContent, nunca innerHTML. Si algo falla acá, queda el HTML de
+  // respaldo de arriba y el CTA sigue funcionando igual.
+  (function () {
+    var c = window.RSL_CONTENIDO;
+    var a = window.RSL_ANUNCIO;
+    if (!c || !a) return;
 
-    const listEl = document.getElementById('prizes-list');
-    listEl.innerHTML = prizes.map(p => `
-      <li class="flex h-[28px] items-center justify-between rounded-lg bg-purple-950/20 px-2.5 text-xs  shrink-0">
-        <div class="flex items-center gap-2">
-          <span class="rounded px-1.5 py-0.5 text-[8px] font-black tracking-wide ${p.tone === 'green' ? 'bg-green-500/15 text-green-400' : 'bg-yellow-500/15 text-yellow-400'}">
-            ${p.tag}
-          </span>
-          <span class="font-semibold text-purple-100">${p.name}</span>
-        </div>
-        <span class="font-black tabular-nums ${p.tone === 'green' ? 'text-green-400' : 'text-yellow-400'}">
-          ${p.amount}
-        </span>
-      </li>
-    `).join('');
+    function poner(id, valor) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = valor;
+    }
 
-    let currentIndex = 0;
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % (prizes.length - 2);
-      listEl.style.transform = `translate3d(0, -${currentIndex * 34}px, 0)`;
-    }, 2800);
+    var hero = document.getElementById('hero');
+    if (hero) {
+      if (a.tipo === 'arte') hero.className += ' hero--arte';
+      hero.style.aspectRatio = a.ancho + ' / ' + a.alto;
+
+      var img = document.createElement('img');
+      img.src = a.imagen;
+      img.alt = a.titulo || a.subtitulo || '';
+      img.width = a.ancho;
+      img.height = a.alto;
+      img.setAttribute('fetchpriority', 'high');
+      img.decoding = 'async';
+      hero.insertBefore(img, hero.firstChild);
+
+      // Video encima de la imagen (la imagen queda de póster y de respaldo).
+      // Con "reducir movimiento" o "ahorro de datos" se muestra solo la imagen.
+      var reducir = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      var ahorro = !!(navigator.connection && navigator.connection.saveData);
+      if (a.tipo === 'video' && a.video && !reducir && !ahorro) {
+        var vid = document.createElement('video');
+        vid.muted = true;
+        vid.setAttribute('muted', '');
+        vid.setAttribute('autoplay', '');
+        vid.setAttribute('loop', '');
+        vid.setAttribute('playsinline', '');
+        vid.setAttribute('preload', 'metadata');
+        vid.setAttribute('aria-hidden', 'true');
+        vid.poster = a.imagen;
+        vid.width = a.ancho;
+        vid.height = a.alto;
+        vid.src = a.video;
+        hero.insertBefore(vid, img.nextSibling);
+      }
+    }
+
+    var titulo = document.getElementById('c-titulo');
+    if (titulo) {
+      titulo.textContent = a.titulo;
+      titulo.hidden = a.tipo === 'arte' || !a.titulo;
+    }
+    var subtitulo = document.getElementById('c-subtitulo');
+    if (subtitulo) {
+      subtitulo.textContent = a.subtitulo;
+      subtitulo.hidden = !a.subtitulo;
+    }
+
+    poner('c-bono', c.bono);
+    poner('c-bono-texto', c.bonoTexto);
+    poner('c-bono-detalle', c.bonoDetalle);
+    poner('c-boton', c.boton);
+    poner('c-boton-2', c.boton);
+    poner('c-atencion', c.atencion);
+    poner('c-pasos-titulo', c.pasosTitulo);
+    poner('c-legal', c.legal);
+    poner('c-condiciones', c.condiciones);
+
+    var ol = document.getElementById('c-pasos');
+    if (ol) {
+      while (ol.firstChild) ol.removeChild(ol.firstChild);
+      for (var i = 0; i < c.pasos.length; i++) {
+        var li = document.createElement('li');
+        var num = document.createElement('span');
+        num.className = 'num';
+        num.textContent = String(i + 1);
+        var cuerpo = document.createElement('div');
+        var t = document.createElement('strong');
+        t.textContent = c.pasos[i].titulo;
+        var p = document.createElement('p');
+        p.textContent = c.pasos[i].texto;
+        cuerpo.appendChild(t);
+        cuerpo.appendChild(p);
+        li.appendChild(num);
+        li.appendChild(cuerpo);
+        ol.appendChild(li);
+      }
+    }
+
+    var beneficios = document.querySelectorAll('.c-beneficio');
+    for (var j = 0; j < beneficios.length; j++) {
+      if (c.beneficios[j]) beneficios[j].textContent = c.beneficios[j];
+    }
+  })();
   </script>
 <script>
   // ============================================================================
@@ -1492,7 +564,10 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
     // generar un Lead nuevo (mismo criterio que solyluz).
     EVENT_ID_TTL_MINUTES: 30,
     LANDING_VARIANT: 'marketingagency',
-    WHATSAPP_MESSAGE: 'Hola, quiero mi 60% de bienvenida.',
+    // Se lee de contenido.js (editable); si falta o no es un texto, se usa
+    // este respaldo.
+    WHATSAPP_MESSAGE: (window.CONTENIDO && typeof window.CONTENIDO.mensajeWhatsapp === 'string' &&
+      window.CONTENIDO.mensajeWhatsapp.trim()) || 'Hola! Quiero mi usuario con el 40% de bienvenida.',
     // Se agrega solo si el backend devolvió lead_ref.
     WHATSAPP_REF_LINE: 'Mi código de descuento es: {lead_ref}',
     // Último número conocido (respaldo local): solo se reusa si se guardó
@@ -2074,6 +1149,24 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       });
     }
   });
+</script>
+<script>
+  // Botón secundario: repite la acción "apretando" el principal, así pasa
+  // por el mismo handler y la misma protección de doble click
+  // (isProcessingLead / leadSentForSession): nunca se dispara un segundo Lead.
+  (function () {
+    var secundario = document.getElementById('btn-secundario');
+    if (!secundario) return;
+    secundario.addEventListener('click', function () {
+      var principal = document.getElementById('btn-whatsapp');
+      if (!principal) return;
+      // Lleva a la vista el estado "Conectando…" / Reintentar, que vive
+      // junto al botón principal.
+      var accion = principal.parentNode;
+      if (accion && accion.scrollIntoView) accion.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      principal.click();
+    });
+  })();
 </script>
 </body>
 </html>
