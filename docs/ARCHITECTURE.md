@@ -3,7 +3,7 @@
 ## Diagrama
 
 ```
-Landing (marketingagency, todo en index.html)
+Landing (marketingagency: index.html + contenido.js + creativos/)
    ↓ Pixel: fbq('track','Lead', {}, {eventID}) + PageView (browser, directo a Meta)
    ↓ POST /api/lead (envío inmediato, mismo event_id)
 Backend central (meta-conversion-backend)
@@ -27,4 +27,4 @@ Igual mecanismo que `redsolyluz`: `GET /api/public-config` (no-store) + cadena d
 
 ## Variables de entorno
 
-Ninguna — sitio estático, todo en un `index.html` (config + markup + lógica).
+Ninguna — sitio estático: `index.html` (config + markup + lógica), `contenido.js` (textos y anuncios editables; el CTA y el tracking no dependen de él, ver `DECISIONS.md`) y `creativos/` (imágenes y videos que elige `?v=`).

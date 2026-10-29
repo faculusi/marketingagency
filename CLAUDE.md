@@ -1,6 +1,6 @@
 # CLAUDE.md — Memoria operativa del proyecto
 
-**Rol de este repo:** `marketingagency` es una **landing/sitio de marketing** integrada al mismo ecosistema que `redsolyluz`: mismo backend (`meta-conversion-backend`), mismo Meta Pixel (`1999888117386965`) y mismo flujo Lead→WhatsApp. Todo el sitio vive en un único `index.html` (HTML/CSS/JS embebido, sin build). A diferencia de `redsolyluz`, envía el Lead a Meta CAPI de inmediato (sin `defer_meta`) y dispara `fbq('track','Lead', ...)` en el browser con el mismo `event_id` que manda al backend, para que Meta deduplique Pixel↔CAPI.
+**Rol de este repo:** `marketingagency` es una **landing/sitio de marketing** integrada al mismo ecosistema que `redsolyluz`: mismo backend (`meta-conversion-backend`), mismo Meta Pixel (`1999888117386965`) y mismo flujo Lead→WhatsApp. El sitio vive en `index.html` (HTML/CSS/JS embebido, sin build), más `contenido.js` (textos y anuncios editables, con respaldo en `index.html`) y `creativos/` (imágenes y videos de los anuncios). A diferencia de `redsolyluz`, envía el Lead a Meta CAPI de inmediato (sin `defer_meta`) y dispara `fbq('track','Lead', ...)` en el browser con el mismo `event_id` que manda al backend, para que Meta deduplique Pixel↔CAPI.
 
 Este repo es uno de 4 que forman un solo sistema en producción (ver `docs/PROJECT_CONTEXT.md`). No leas la documentación de los otros 3 repos salvo que la tarea cruce repos explícitamente.
 
