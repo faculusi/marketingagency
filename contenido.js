@@ -37,7 +37,7 @@ window.CONTENIDO = {
   ],
   beneficios: ['Activos 24 hs', 'Carga rápida', 'Retiros por WhatsApp'],
   legal: 'Solo mayores de 18 · Jugá con responsabilidad',
-  condiciones: 'Promoción por tiempo limitado. [CONDICIONES DEL BONO]',
+  condiciones: 'Bono del 40% en tu primera carga, sin tope de monto.',
   mensajeWhatsapp: 'Hola! Quiero mi usuario con el 40% de bienvenida.',
 
   anuncioPorDefecto: 'zeus',
