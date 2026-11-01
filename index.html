@@ -37,7 +37,7 @@
       condiciones: '+40% de bienvenida, sin tope de monto.',
       anuncioPorDefecto: 'zeus',
       anuncios: {
-        zeus:       { tipo: 'arte',   imagen: 'creativos/zeus.webp',       ancho: 780, alto: 815, titulo: 'Recibí tu gran bienvenida',    subtitulo: 'Te atiende una persona las 24 hs' },
+        zeus:       { tipo: 'arte',   imagen: 'creativos/zeus.webp',       ancho: 780, alto: 660, titulo: 'Recibí tu gran bienvenida',    subtitulo: 'Te atiende una persona las 24 hs' },
         bufon:      { tipo: 'imagen', imagen: 'creativos/bufon.webp',      ancho: 780, alto: 680, titulo: 'Confianza asegurada',          subtitulo: 'Te atiende una persona real' },
         toros:      { tipo: 'imagen', imagen: 'creativos/toros.webp',      ancho: 780, alto: 533, titulo: 'No te quedes afuera',          subtitulo: 'Activos las 24 hs' },
         mansion:    { tipo: 'arte',   imagen: 'creativos/mansion.webp',    ancho: 780, alto: 613, titulo: 'Entrá a la mansión encantada', subtitulo: 'Pedí tu usuario con tu beneficio' },
@@ -195,7 +195,8 @@
       content: ''; position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(to bottom, rgba(20, 8, 38, 0) 45%, rgba(20, 8, 38, .55) 68%, rgba(20, 8, 38, .92) 88%, var(--fondo) 100%);
     }
-    .hero--arte::after { background: linear-gradient(to bottom, rgba(20, 8, 38, 0) 80%, var(--fondo) 100%); }
+    .hero--arte img { object-position: center 33%; }
+    .hero--arte::after { background: linear-gradient(to bottom, rgba(20, 8, 38, 0) 90%, var(--fondo) 100%); }
     .pildora {
       position: absolute; top: 12px; right: 12px; z-index: 2;
       padding: 4px 10px; border-radius: 999px;
@@ -213,7 +214,7 @@
 
     /* En 'arte' la imagen trae su propio título abajo: el logo solo apoya en
        el borde para no taparlo. */
-    .hero--arte + .logo { margin-top: -28px; }
+    .hero--arte + .logo { width: 180px; margin-top: -18px; }
 
     .contenido { padding: 0 16px; }
 

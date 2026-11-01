@@ -17,7 +17,9 @@
   - tipo: 'imagen' (foto con título abajo), 'arte' (la imagen ya trae su
     propio título: solo se muestra el subtítulo) o 'video'.
   - ancho / alto: medidas de la imagen en píxeles. Son opcionales: si no
-    se ponen, se usa 780 × 660 y la imagen se recorta un poco.
+    se ponen, se usa 780 × 660 y la imagen se recorta un poco. Si ponés un
+    alto menor al real, se recorta un poco arriba y abajo (así quedó zeus,
+    para que el botón quede a la misma altura que en los demás).
   - Para agregar un anuncio: subí la imagen (y el video, si hay) a la
     carpeta creativos/ y copiá una línea de abajo cambiándole los datos.
   - Si el link no trae ?v= o trae uno que no existe, se muestra el
@@ -42,7 +44,7 @@ window.CONTENIDO = {
 
   anuncioPorDefecto: 'zeus',
   anuncios: {
-    zeus:       { tipo: 'arte',   imagen: 'creativos/zeus.webp',       ancho: 780, alto: 815, titulo: 'Recibí tu gran bienvenida',    subtitulo: 'Te atiende una persona las 24 hs' },
+    zeus:       { tipo: 'arte',   imagen: 'creativos/zeus.webp',       ancho: 780, alto: 660, titulo: 'Recibí tu gran bienvenida',    subtitulo: 'Te atiende una persona las 24 hs' },
     bufon:      { tipo: 'imagen', imagen: 'creativos/bufon.webp',      ancho: 780, alto: 680, titulo: 'Confianza asegurada',          subtitulo: 'Te atiende una persona real' },
     toros:      { tipo: 'imagen', imagen: 'creativos/toros.webp',      ancho: 780, alto: 533, titulo: 'No te quedes afuera',          subtitulo: 'Activos las 24 hs' },
     mansion:    { tipo: 'arte',   imagen: 'creativos/mansion.webp',    ancho: 780, alto: 613, titulo: 'Entrá a la mansión encantada', subtitulo: 'Pedí tu usuario con tu beneficio' },
