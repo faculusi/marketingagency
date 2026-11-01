@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#140826" />
-  <title>Red Sol y Luz — Bono de bienvenida</title>
+  <title>Red Sol y Luz — 40% de bienvenida</title>
   <link rel="icon" type="image/png" href="creativos/icono.png" />
   <link rel="preload" href="fuentes/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin />
 
@@ -22,29 +22,29 @@
   (function () {
     var RESPALDO = {
       bono: '+40%',
-      bonoTexto: 'Bono de bienvenida',
-      bonoDetalle: 'en tu primera carga',
+      bonoTexto: 'De bienvenida',
+      bonoDetalle: 'Te contamos todo por WhatsApp',
       boton: 'Quiero mi usuario',
       atencion: 'Te atiende una persona real · las 24 hs',
       pasosTitulo: 'Cómo funciona',
       pasos: [
         { titulo: 'Tocá el botón', texto: 'Se abre WhatsApp con el mensaje listo.' },
         { titulo: 'Te creamos el usuario', texto: 'Una persona te atiende en el momento.' },
-        { titulo: 'Cargás y recibís el +40%', texto: 'Billetera virtual o transferencia.' }
+        { titulo: 'Recibís tu +40% de bienvenida', texto: 'Billetera virtual o transferencia.' }
       ],
-      beneficios: ['Activos 24 hs', 'Carga rápida', 'Retiros por WhatsApp'],
+      beneficios: ['Activos 24 hs', 'Atención rápida', 'Retiros por WhatsApp'],
       legal: 'Solo mayores de 18 · Jugá con responsabilidad',
-      condiciones: 'Bono del 40% en tu primera carga, sin tope de monto.',
+      condiciones: '+40% de bienvenida, sin tope de monto.',
       anuncioPorDefecto: 'zeus',
       anuncios: {
-        zeus:       { tipo: 'imagen', imagen: 'creativos/zeus.webp',       ancho: 780, alto: 579, titulo: 'Recibí tu gran bono',          subtitulo: 'Arrancá hoy' },
+        zeus:       { tipo: 'arte',   imagen: 'creativos/zeus.webp',       ancho: 780, alto: 815, titulo: 'Recibí tu gran bienvenida',    subtitulo: 'Te atiende una persona las 24 hs' },
         bufon:      { tipo: 'imagen', imagen: 'creativos/bufon.webp',      ancho: 780, alto: 680, titulo: 'Confianza asegurada',          subtitulo: 'Te atiende una persona real' },
         toros:      { tipo: 'imagen', imagen: 'creativos/toros.webp',      ancho: 780, alto: 533, titulo: 'No te quedes afuera',          subtitulo: 'Activos las 24 hs' },
         mansion:    { tipo: 'arte',   imagen: 'creativos/mansion.webp',    ancho: 780, alto: 613, titulo: 'Entrá a la mansión encantada', subtitulo: 'Pedí tu usuario con tu beneficio' },
         princesa:   { tipo: 'arte',   imagen: 'creativos/princesa.webp',   ancho: 780, alto: 731, titulo: 'Desbloqueá tu suerte',         subtitulo: 'Te atiende una persona real' },
-        perro:      { tipo: 'video',  imagen: 'creativos/perro.webp',      video: 'creativos/perro.mp4',      ancho: 780, alto: 660, titulo: 'Cargá desde el celu',          subtitulo: 'Activos las 24 hs' },
-        panda:      { tipo: 'video',  imagen: 'creativos/panda.webp',      video: 'creativos/panda.mp4',      ancho: 780, alto: 660, titulo: 'Relajate, nosotros cargamos',  subtitulo: 'Te atiende una persona real' },
-        perroverde: { tipo: 'video',  imagen: 'creativos/perroverde.webp', video: 'creativos/perroverde.mp4', ancho: 780, alto: 660, titulo: 'Cargá desde el celu',          subtitulo: 'Activos las 24 hs' }
+        perro:      { tipo: 'video',  imagen: 'creativos/perro.webp',      video: 'creativos/perro.mp4',      ancho: 780, alto: 660, titulo: 'Escribinos desde el celu',     subtitulo: 'Activos las 24 hs' },
+        panda:      { tipo: 'video',  imagen: 'creativos/panda.webp',      video: 'creativos/panda.mp4',      ancho: 780, alto: 660, titulo: 'Relajate, te atendemos nosotros', subtitulo: 'Activos las 24 hs' },
+        perroverde: { tipo: 'video',  imagen: 'creativos/perroverde.webp', video: 'creativos/perroverde.mp4', ancho: 780, alto: 660, titulo: 'Escribinos desde el celu',     subtitulo: 'Activos las 24 hs' }
       }
     };
     var CLAVE_VALIDA = /^[a-z0-9_-]{1,40}$/;
@@ -367,15 +367,15 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
 
     <div class="contenido">
       <!-- 3. Título (no se muestra en los anuncios tipo 'arte') + subtítulo -->
-      <h1 id="c-titulo" class="titulo">Recibí tu gran bono</h1>
-      <p id="c-subtitulo" class="subtitulo">Arrancá hoy</p>
+      <h1 id="c-titulo" class="titulo">Recibí tu gran bienvenida</h1>
+      <p id="c-subtitulo" class="subtitulo">Te atiende una persona las 24 hs</p>
 
       <!-- 4. Bono -->
       <div class="tarjeta bono">
         <span id="c-bono" class="bono-num">+40%</span>
         <span class="bono-txt">
-          <strong id="c-bono-texto">Bono de bienvenida</strong>
-          <span id="c-bono-detalle">en tu primera carga</span>
+          <strong id="c-bono-texto">De bienvenida</strong>
+          <span id="c-bono-detalle">Te contamos todo por WhatsApp</span>
         </span>
       </div>
 
@@ -403,7 +403,7 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
         <ol id="c-pasos">
           <li><span class="num">1</span><div><strong>Tocá el botón</strong><p>Se abre WhatsApp con el mensaje listo.</p></div></li>
           <li><span class="num">2</span><div><strong>Te creamos el usuario</strong><p>Una persona te atiende en el momento.</p></div></li>
-          <li><span class="num">3</span><div><strong>Cargás y recibís el +40%</strong><p>Billetera virtual o transferencia.</p></div></li>
+          <li><span class="num">3</span><div><strong>Recibís tu +40% de bienvenida</strong><p>Billetera virtual o transferencia.</p></div></li>
         </ol>
       </section>
 
@@ -415,7 +415,7 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
         </li>
         <li class="tarjeta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
-          <span class="c-beneficio">Carga rápida</span>
+          <span class="c-beneficio">Atención rápida</span>
         </li>
         <li class="tarjeta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/></svg>
@@ -433,7 +433,7 @@ src="https://www.facebook.com/tr?id=1999888117386965&ev=PageView&noscript=1"
       <!-- 9. Pie -->
       <footer class="pie">
         <p id="c-legal" class="legal">Solo mayores de 18 · Jugá con responsabilidad</p>
-        <p id="c-condiciones" class="condiciones">Bono del 40% en tu primera carga, sin tope de monto.</p>
+        <p id="c-condiciones" class="condiciones">+40% de bienvenida, sin tope de monto.</p>
       </footer>
     </div>
   </main>
